@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "wechaty": "^0.15.3"
+  },
+  "devDependencies": {}
+}
