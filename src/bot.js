@@ -3,11 +3,11 @@ const QRCode = require('qrcode-terminal')
 
 Wechaty.instance()
 	.on('scan', (url, code) => {
-		console.log(`Scan QR Code to login: ${code}\n${url}`)
-		const loginUrl = url.replace(/\/qrcode\//, '/l/')
-		QRCode.generate(loginUrl)
+		if (!/201|200/.test(code)) {
+			const loginUrl = url.replace(/\/qrcode\//, '/l/')
+			QRCode.generate(loginUrl)
+		}
 	})
-	.on('login', user => console.log(user))
 	.on('message', message => {
 		const contact = message.from()
 		const content = message.content()
