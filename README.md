@@ -1,7 +1,7 @@
 # wechat-bot-demo
 
-## How to Run
+## Quick Start
 
 ```bash
-$ yarn run start
+yarn run start
 ```
