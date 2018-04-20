@@ -1,6 +1,12 @@
 {
-  "dependencies": {
-    "wechaty": "^0.15.3"
-  },
-  "devDependencies": {}
+	"name": "wechat-bot-demo",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node src/bot.js"
+	},
+	"dependencies": {
+		"wechaty": "^0.15.3"
+	},
+	"devDependencies": {}
 }
