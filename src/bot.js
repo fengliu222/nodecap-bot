@@ -17,7 +17,7 @@ Wechaty.instance()
 	})
 	.on('message', message => {
 		// const contact = message.from()
-		// const content = message.content()
+		const content = message.content()
 		// const room = message.room()
 		//
 		// if (room) {
@@ -32,13 +32,17 @@ Wechaty.instance()
 			return
 		}
 
-		// if (/hello|你好/.test(content)) {
-		// 	message.say('你好，我是币汪')
-		// }
-		//
-		// if (/yo/.test(content)) {
-		// 	message.say('药药切克闹')
-		// }
+		if (/hello|你好/.test(content)) {
+			message.say('你好，我是币汪')
+		}
+
+		if (/yo/.test(content)) {
+			message.say('药药切克闹')
+		}
+
+		if (/alisa/.test(content)) {
+			message.say('是猪猪了')
+		}
 
 		handleCoinMsg(message)
 	})

@@ -14,7 +14,7 @@ const handleCoinMsg = message => {
 					message.say(
 						`币种: ${crypto.symbol}\n市值排名: ${
 							crypto.rank
-						}\n现价: $${crypto.price_usd}, ￥${
+						}\n现价: $${crypto.price_usd}/￥${
 							crypto.price_cny
 						}\n涨跌幅(%): ${crypto.percent_change_1h}(1小时), ${
 							crypto.percent_change_24h
