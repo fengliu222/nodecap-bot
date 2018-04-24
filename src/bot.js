@@ -44,4 +44,7 @@ Wechaty.instance()
 		handleCoinMsg(message)
 		handleExchangeMsg(message)
 	})
+	.on('logout', user => {
+		console.log(`${user} logout`)
+	})
 	.start()
