@@ -17,17 +17,17 @@ Wechaty.instance()
 		console.log(`${user} login`)
 	})
 	.on('message', message => {
-		// const contact = message.from()
+		const contact = message.from()
 		const content = message.content()
-		// const room = message.room()
-		//
-		// if (room) {
-		// 	console.log(
-		// 		`Room: ${room.topic()} Contact: ${contact.name()} Content: ${content}`
-		// 	)
-		// } else {
-		// 	console.log(`Contact: ${contact.name()} Content: ${content}`)
-		// }
+		const room = message.room()
+
+		if (room) {
+			console.log(
+				`Room: ${room.topic()} Contact: ${contact.name()}: ${content}`
+			)
+		} else {
+			console.log(`Contact: ${contact.name()}: ${content}`)
+		}
 
 		if (message.self()) {
 			return
