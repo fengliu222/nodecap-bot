@@ -16,7 +16,7 @@ const requestTotalMarketCap = message => {
 						total_market_cap_usd
 					)}\n24小时总交易量: ${accounting.formatMoney(
 						total_24h_volume_usd
-					)}\nBTC占比(%): ${bitcoin_percentage_of_market_cap}\n`
+					)}\nBTC占比(%): ${bitcoin_percentage_of_market_cap}`
 				)
 			}
 		}
@@ -62,7 +62,7 @@ const handleCoinMsg = message => {
 
 	// total marketcap
 	if (/市值|marketcap/.test(content)) {
-		requestTotalMarketCap(message)
+		return requestTotalMarketCap(message)
 	}
 
 	// 100 tokens
