@@ -62,7 +62,7 @@ const handleCoinMsg = message => {
 
 	// total marketcap
 	if (/市值|marketcap/.test(content)) {
-		return requestTotalMarketCap(message)
+		requestTotalMarketCap(message)
 	}
 
 	// 100 tokens

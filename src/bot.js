@@ -34,11 +34,11 @@ Wechaty.instance()
 		}
 
 		if (/hello|你好/.test(content)) {
-			return message.say('你好，我是币汪')
+			message.say('你好，我是币汪')
 		}
 
 		if (/yo/.test(content)) {
-			return message.say('药药切克闹')
+			message.say('药药切克闹')
 		}
 
 		handleCoinMsg(message)
