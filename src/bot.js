@@ -4,6 +4,7 @@ const QRCode = require('qrcode-terminal')
 
 // modules
 const { handleCoinMsg } = require('./handlers/coin')
+const { handleExchangeMsg } = require('./handlers/exchange')
 
 Wechaty.instance()
 	.on('scan', (url, code) => {
@@ -40,10 +41,11 @@ Wechaty.instance()
 			message.say('药药切克闹')
 		}
 
-		if (/alisa/.test(content)) {
-			message.say('是猪猪了')
-		}
+		// if (/alisa/.test(content)) {
+		// 	message.say('是猪猪了')
+		// }
 
 		handleCoinMsg(message)
+		handleExchangeMsg(message)
 	})
 	.start()
