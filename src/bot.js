@@ -1,12 +1,15 @@
 // dependencies
 const { Wechaty } = require('wechaty')
 const QRCode = require('qrcode-terminal')
+const Schedule = require('node-schedule')
 
 // modules
 const { handleCoinMsg } = require('./handlers/coin')
 const { handleExchangeMsg } = require('./handlers/exchange')
 
-Wechaty.instance()
+const bot = Wechaty.instance()
+
+bot
 	.on('scan', (url, code) => {
 		if (!/201|200/.test(code)) {
 			const loginUrl = url.replace(/\/qrcode\//, '/l/')
@@ -45,10 +48,6 @@ Wechaty.instance()
 			message.say('你好，我是币汪')
 		}
 
-		if (/yo/.test(content)) {
-			message.say('药药切克闹')
-		}
-
 		await handleCoinMsg(message)
 		await handleExchangeMsg(message)
 
@@ -58,3 +57,7 @@ Wechaty.instance()
 		console.log(`${user} logout`)
 	})
 	.start()
+
+Schedule.scheduleJob('0 0 20 * * *', () => {
+	bot.say('The answer to life, the universe, and everything!')
+})
