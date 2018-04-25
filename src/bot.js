@@ -59,5 +59,5 @@ bot
 	.start()
 
 Schedule.scheduleJob('0 0 20 * * *', () => {
-	bot.say('The answer to life, the universe, and everything!')
+	bot.say('定时任务测试!')
 })
