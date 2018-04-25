@@ -24,7 +24,7 @@ Wechaty.instance()
 			)
 		}
 	})
-	.on('message', message => {
+	.on('message', async message => {
 		const contact = message.from()
 		const content = message.content()
 		const room = message.room()
@@ -49,8 +49,10 @@ Wechaty.instance()
 			message.say('药药切克闹')
 		}
 
-		handleCoinMsg(message)
-		handleExchangeMsg(message)
+		await handleCoinMsg(message)
+		await handleExchangeMsg(message)
+
+		// message.say('Sorry, 听不太懂了-_-')
 	})
 	.on('logout', user => {
 		console.log(`${user} logout`)
