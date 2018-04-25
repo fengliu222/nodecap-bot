@@ -16,6 +16,14 @@ Wechaty.instance()
 	.on('login', user => {
 		console.log(`${user} login`)
 	})
+	.on('friend', async (contact, request) => {
+		if (request) {
+			await request.accept()
+			console.log(
+				`Contact: ${contact.name()} send request ${request.hello}`
+			)
+		}
+	})
 	.on('message', message => {
 		const contact = message.from()
 		const content = message.content()
