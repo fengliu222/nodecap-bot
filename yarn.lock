@@ -833,9 +833,9 @@ watchdog@^0.3.0:
   dependencies:
     brolog "^1.2.6"
 
-wechaty@^0.15.3:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/wechaty/-/wechaty-0.15.3.tgz#c16d4786c23b5774a1973f3ae47a9ddfe2e55c07"
+wechaty@^0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/wechaty/-/wechaty-0.14.1.tgz#b8ae0e25736be660f2a4d178fb29f68d29a32513"
   dependencies:
     "@types/node" "^9.4.0"
     "@types/ws" "^4.0.1"
