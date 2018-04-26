@@ -6,18 +6,26 @@ const Schedule = require('node-schedule')
 // modules
 const { handleCoinMsg } = require('./handlers/coin')
 const { handleExchangeMsg } = require('./handlers/exchange')
+const { handleTwitterRequest } = require('./handlers/twitter')
 
 const bot = Wechaty.instance()
+var job
 
 bot
 	.on('scan', (url, code) => {
-		if (!/201|200/.test(code)) {
-			const loginUrl = url.replace(/\/qrcode\//, '/l/')
-			QRCode.generate(loginUrl)
+		if (/201|200/.test(code)) {
+			return
 		}
+		const loginUrl = url.replace(/\/qrcode\//, '/l/')
+		QRCode.generate(loginUrl)
 	})
 	.on('login', user => {
 		console.log(`${user} login`)
+
+		// start scheduler
+		job = Schedule.scheduleJob('0 0 20 * * *', () => {
+			handleTwitterRequest()
+		})
 	})
 	.on('friend', async (contact, request) => {
 		if (request) {
@@ -55,9 +63,8 @@ bot
 	})
 	.on('logout', user => {
 		console.log(`${user} logout`)
+
+		// cancel scheduler
+		job.cancel()
 	})
 	.start()
-
-Schedule.scheduleJob('0 0 20 * * *', () => {
-	bot.say('定时任务测试!')
-})
