@@ -23,17 +23,28 @@ bot
 		console.log(`${user} login`)
 
 		// start scheduler
-		job = Schedule.scheduleJob('0 0 20 * * *', () => {
+		job = Schedule.scheduleJob('0 0 19 * * *', () => {
 			handleTwitterRequest()
 		})
 	})
 	.on('friend', async (contact, request) => {
 		if (request) {
 			await request.accept()
-			console.log(
-				`Contact: ${contact.name()} send request ${request.hello}`
-			)
+			console.log(`Contact: ${contact.name()} send request ${request.hello}`)
 		}
+	})
+	.on('room-join', (room, inviteeList, inviter) => {
+		const nameList = inviteeList.map(c => c.name()).join(',')
+		console.log(
+			`Room ${room.topic()} got new member ${nameList}, invited by ${inviter}`
+		)
+
+		// say hello
+		room.say('雷猴')
+	})
+	.on('room-leave', (room, leaverList) => {
+		const nameList = leaverList.map(c => c.name()).join(',')
+		console.log(`Room ${room.topic()} lost member ${nameList}`)
 	})
 	.on('message', async message => {
 		const contact = message.from()
