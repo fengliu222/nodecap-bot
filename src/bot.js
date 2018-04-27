@@ -23,7 +23,7 @@ bot
 		console.log(`${user} login`)
 
 		// start scheduler
-		job = Schedule.scheduleJob('0 0 19 * * *', () => {
+		job = Schedule.scheduleJob('0 0 7 * * *', () => {
 			handleTwitterRequest()
 		})
 	})

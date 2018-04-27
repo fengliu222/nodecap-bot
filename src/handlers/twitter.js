@@ -15,27 +15,25 @@ const T = new Twit({
 	timeout_ms: 60 * 1000
 })
 
-const handleTwitterRequest = () => {
-	T.get('statuses/home_timeline', { count: 10 }, async (err, data, res) => {
-		if (!err) {
-			const text = data
-				.map(
-					(t, i) =>
-						`${i + 1}\n${moment(t.created_at).format('LLL')}\n${
-							t.user.name
-						}: \n${t.text}`
-				)
-				.join('\n\n')
-			Translate.translate(text, 'zh-CN', (err, translation) => {
-				if (!err) {
-					console.log(translation)
-				}
+const handleTwitterRequest = async () => {
+	const room = await Room.find({ topic: '节点-产品技术Mafia' })
+	if (!room) return
+	T.get('statuses/home_timeline', { count: 20 }, (err, data, res) => {
+		if (err) return
+		const content = data.map(d => d.text)
+		Translate.translate(content, 'zh-CN', (err, translation) => {
+			if (err) return
+			let combinedText = data.map((d, i) => {
+				const { translatedText } = translation[i]
+				return `${i + 1}. ${d.user.name}（${moment(d.created_at).format(
+					'LT'
+				)}）：\n${translatedText}\n\n`
 			})
-			// const room = await Room.find({ topic: '节点-产品技术Mafia' })
-			// if (room) {
-			// 	await room.say(text)
-			// }
-		}
+			combinedText = `节点投资项目动态汇总：\n\n${combinedText}`
+
+			// send it
+			room.say(combinedText)
+		})
 	})
 }
 
