@@ -1,4 +1,4 @@
-# wechat-bot-demo
+# Bot for NodeCap
 
 ## Quick Start
 
