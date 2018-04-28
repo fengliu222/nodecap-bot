@@ -29,7 +29,9 @@ const handleTwitterRequest = async () => {
 					'LT'
 				)}）：\n${translatedText}\n\n`
 			})
-			combinedText = `节点投资项目动态汇总：\n\n${combinedText}`
+			combinedText = `节点投资项目动态汇总（${moment().format(
+				'L'
+			)}）：\n\n${combinedText}`
 
 			// send it
 			room.say(combinedText)
