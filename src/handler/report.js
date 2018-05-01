@@ -4,7 +4,7 @@ const accounting = require('accounting')
 
 const { getProjectNews } = require('./news')
 const { getTokenInfo } = require('./coin')
-const { timeout } = require('../helper/common')
+const { delay } = require('../helper/common')
 
 moment.locale('zh-cn')
 
@@ -18,22 +18,25 @@ const generateReport = async () => {
 	// iterate
 	const report_raw = await Promise.all(
 		projects.map(async p => {
+			const project = p
 			try {
-				// const news = await getProjectNews(p)
-				// await timeout(500)
-				const tokenInfo = await getTokenInfo(p)
-				return {
-					...p,
-					// news: news.content,
-					price_usd: tokenInfo.price_usd,
-					price_cny: tokenInfo.price_cny
-				}
+				const news = await getProjectNews(p)
+				project['news'] = news.content
 			} catch (error) {
-				return p
+				console.error(error)
 			}
+			try {
+				const tokenInfo = await getTokenInfo(p)
+				project['price_usd'] = tokenInfo.price_usd
+				project['price_cny'] = tokenInfo.price_cny
+			} catch (error) {
+				console.error(error)
+			}
+			return project
 		})
 	)
 	let report_text = report_raw
+		.filter(r => r.news || r.price_cny || r.price_usd)
 		.map(r => {
 			return `${r.name}${r.token ? `（${r.token}）` : ''}：\n${
 				r.news ? `动态：${r.news}\n` : ''
@@ -51,8 +54,8 @@ const generateReport = async () => {
 	)})：\n\n${report_text}`
 
 	// say it
-	// room.say(report_text)
-	console.log(report_text)
+	room.say(report_text)
+	// console.log(report_text)
 }
 
 module.exports = {

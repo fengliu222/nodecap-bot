@@ -20,6 +20,7 @@ const getProjectNews = async project => {
 			} = news
 			return Promise.resolve(item)
 		}
+		return Promise.reject(news)
 	} catch (error) {
 		return Promise.reject(error)
 	}
