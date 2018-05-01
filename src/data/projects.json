@@ -1,0 +1,474 @@
+[
+	{
+		"name": "金丘区块链Penta",
+		"token": "PNT"
+	},
+	{
+		"name": "仙女座",
+		"token": null
+	},
+	{
+		"name": "bitup",
+		"token": "BUT",
+		"twitter": "https://twitter.com/bitupofficial"
+	},
+	{
+		"name": "mex",
+		"token": "mex",
+		"twitter": "https://twitter.com/Global_MEX"
+	},
+	{
+		"id": "iostoken",
+		"name": "IOST",
+		"token": "IOST",
+		"twitter": "https://twitter.com/IOStoken"
+	},
+	{
+		"id": "alphacat",
+		"name": "alphacat",
+		"token": "acat",
+		"twitter": "https://twitter.com/ACAT_Official"
+	},
+	{
+		"name": "DDEX",
+		"token": "HOT",
+		"twitter": "https://twitter.com/ddex_io"
+	},
+	{
+		"id": "show",
+		"name": "showone（秀币）",
+		"token": "SHOW",
+		"twitter": "https://twitter.com/Show_coin"
+	},
+	{
+		"id": "swftcoin",
+		"name": "swftcoin",
+		"token": "SWFC",
+		"twitter": "https://twitter.com/SwftCoin"
+	},
+	{
+		"name": "Robin 8",
+		"token": null,
+		"twitter": "https://twitter.com/HelloRobin8"
+	},
+	{
+		"id": "acute-angle-cloud",
+		"name": "锐角云",
+		"token": "AAC",
+		"twitter": "https://twitter.com/AcuteAngleCloud"
+	},
+	{
+		"id": "fortuna",
+		"name": "方图",
+		"token": "FOTA",
+		"twitter": "https://twitter.com/FortunaBlockch1"
+	},
+	{
+		"id": "qunqun",
+		"name": "QunQun",
+		"token": "QUN",
+		"twitter": "https://twitter.com/qunqun_io"
+	},
+	{
+		"name": "litex",
+		"token": "LXT",
+		"twitter": "https://twitter.com/litex_io"
+	},
+	{
+		"name": "newschain",
+		"token": "NEWT"
+	},
+	{
+		"id": "cortex",
+		"name": "cortex labs",
+		"token": "CTXC",
+		"twitter": "https://twitter.com/CTXCBlockchain"
+	},
+	{
+		"name": "Tripio",
+		"token": "TRIO",
+		"twitter": "https://twitter.com/thetripio"
+	},
+	{
+		"name": "Ulord",
+		"token": "UT",
+		"twitter": "https://twitter.com/UlordChain"
+	},
+	{
+		"name": "CNN",
+		"token": "CNN",
+		"twitter": "https://twitter.com/CNN_Blockchain"
+	},
+	{
+		"name": "Befund",
+		"token": "BFDT",
+		"twitter": "https://twitter.com/BefundOfficial"
+	},
+	{
+		"name": "币看",
+		"token": "KAN",
+		"twitter": "https://twitter.com/BitKanOfficial"
+	},
+	{
+		"id": "mithril",
+		"name": "Mithril",
+		"token": "MITH",
+		"twitter": "https://twitter.com/MithrilToken"
+	},
+	{
+		"id": "pixie-coin",
+		"name": "妖精购物街",
+		"token": "pxc",
+		"twitter": "https://twitter.com/coin_pixie"
+	},
+	{
+		"id": "ugchain",
+		"name": "ugc",
+		"token": "UGC",
+		"twitter": "https://twitter.com/ugChain"
+	},
+	{
+		"id": "gems-protocol",
+		"name": "Gems",
+		"token": "GEM",
+		"twitter": "https://twitter.com/gems"
+	},
+	{
+		"name": "GSC",
+		"token": "GSC",
+		"twitter": "https://twitter.com/gsc_socialchain"
+	},
+	{
+		"name": "ZIP",
+		"token": "ZIP",
+		"twitter": "https://twitter.com/ZipperInfo"
+	},
+	{
+		"id": "education-ecosystem",
+		"name": "EDU",
+		"token": "EDU",
+		"twitter": "https://twitter.com/edu_coins"
+	},
+	{
+		"name": "cai",
+		"token": null
+	},
+	{
+		"name": "foodchain",
+		"token": "FOODC",
+		"twitter": "https://twitter.com/foodcoin_io"
+	},
+	{
+		"id": "electronic-pk-chain",
+		"name": "电竞链（EPC）",
+		"token": "EPC",
+		"twitter": "https://twitter.com/ElectronicPk"
+	},
+	{
+		"name": "DDM",
+		"token": "DDM"
+	},
+	{
+		"name": "CDC",
+		"token": "CDC"
+	},
+	{
+		"name": "龙之世纪",
+		"token": "NGT"
+	},
+	{
+		"id": "ruff",
+		"name": "ruff",
+		"token": "RUFF"
+	},
+	{
+		"id": "maggie",
+		"name": "麦奇（MAG）",
+		"token": "MAG",
+		"twitter": "https://twitter.com/Maggie_Tweet"
+	},
+	{
+		"id": "odyssey",
+		"name": "ocoin",
+		"token": "OCN"
+	},
+	{
+		"name": "baic",
+		"token": null
+	},
+	{
+		"id": "all-sports",
+		"name": "All Sports",
+		"token": "SOC",
+		"twitter": "https://twitter.com/allsportschain"
+	},
+	{
+		"id": "arcblock",
+		"name": "ArcBlock",
+		"token": "ABT",
+		"twitter": "https://twitter.com/ArcBlock_io"
+	},
+	{
+		"id": "nework",
+		"name": "nework",
+		"token": "NKC"
+	},
+	{
+		"name": "iic智投链",
+		"token": "IIC"
+	},
+	{
+		"name": "Hotchain",
+		"token": "HOTC",
+		"twitter": "https://twitter.com/HOT_chain"
+	},
+	{
+		"name": "MUSK",
+		"token": "MUSK"
+	},
+	{
+		"id": "read",
+		"name": "小强连载",
+		"token": "READ",
+		"twitter": "https://twitter.com/READ_Token"
+	},
+	{
+		"name": "股书",
+		"token": "CAF"
+	},
+	{
+		"id": "measurable-data-token",
+		"name": "量数币",
+		"token": "MDT",
+		"twitter": "https://twitter.com/MeasurableData"
+	},
+	{
+		"name": "sgc",
+		"token": "sgcc"
+	},
+	{
+		"name": "Joytoken",
+		"token": "Joy",
+		"twitter": "https://twitter.com/JoyToken"
+	},
+	{
+		"id": "yee",
+		"name": "YeeCall",
+		"token": "Yee",
+		"twitter": "https://twitter.com/YeeToken"
+	},
+	{
+		"name": "youlive",
+		"token": "UC",
+		"twitter": "https://twitter.com/OfficialYouLive"
+	},
+	{
+		"id": "sharex",
+		"name": "sharex",
+		"token": "SEXC",
+		"twitter": "https://twitter.com/sharex_vc"
+	},
+	{
+		"id": "litecoin-cash",
+		"name": "莱特现金",
+		"token": "LCC",
+		"twitter": "https://twitter.com/LitecoinFork"
+	},
+	{
+		"name": "kkcoin",
+		"token": "KK",
+		"twitter": "https://twitter.com/KKCoinEX"
+	},
+	{
+		"id": "gbcgoldcoin",
+		"name": "GBC",
+		"token": "GBC"
+	},
+	{
+		"name": "Detrust",
+		"token": "XDT",
+		"twitter": "https://twitter.com/Detrust_io"
+	},
+	{
+		"id": "data",
+		"name": "data",
+		"token": "DTA",
+		"twitter": "https://twitter.com/datadotworld"
+	},
+	{
+		"id": "aidoc",
+		"name": "天医",
+		"token": "AIDOC",
+		"twitter": "https://twitter.com/AIDOCMe"
+	},
+	{
+		"id": "delphy",
+		"name": "天算",
+		"token": "DPY",
+		"twitter": "https://twitter.com/Delphy_org"
+	},
+	{
+		"id": "prochain",
+		"name": "Prochain（般若）",
+		"token": "PRA",
+		"twitter": "https://twitter.com/ProChainTech"
+	},
+	{
+		"id": "wax",
+		"name": "OpSkins -wax",
+		"token": "wax",
+		"twitter": "https://twitter.com/wax_io"
+	},
+	{
+		"id": "halalchain",
+		"name": "Halalchain",
+		"token": "HLC",
+		"twitter": "https://twitter.com/HalalChain"
+	},
+	{
+		"id": "spacechain",
+		"name": "太空链",
+		"token": "SPC",
+		"twitter": "https://twitter.com/Space__Chain"
+	},
+	{
+		"name": "coinpaws（币爪）",
+		"token": "cps"
+	},
+	{
+		"id": "canyacoin",
+		"name": "can",
+		"token": "can"
+	},
+	{
+		"id": "aelf",
+		"name": "Aelf",
+		"token": "ELF",
+		"twitter": "https://twitter.com/aelfblockchain"
+	},
+	{
+		"id": "litebitcoin",
+		"name": "闪电比特币",
+		"token": "LBTC",
+		"twitter": "https://twitter.com/LightningBTC"
+	},
+	{
+		"id": "time-new-bank",
+		"name": "秒啊",
+		"token": "TNB",
+		"twitter": "https://twitter.com/TimeNewBank"
+	},
+	{
+		"id": "zilliqa",
+		"name": "Zilliqa",
+		"token": "ZIL",
+		"twitter": "https://twitter.com/zilliqa"
+	},
+	{
+		"id": "theta-token",
+		"name": "Theta",
+		"token": "THETA",
+		"twitter": "https://twitter.com/ThetaToken"
+	},
+	{
+		"id": "theta-token",
+		"name": "Scry",
+		"token": "DDD",
+		"twitter": "https://twitter.com/scryscry8"
+	},
+	{
+		"id": "primas",
+		"name": "Primas",
+		"token": "PST",
+		"twitter": "https://twitter.com/PrimasOfficial"
+	},
+	{
+		"name": "ObEN PAI",
+		"token": null,
+		"twitter": "https://twitter.com/ObenMe"
+	},
+	{
+		"id": "ink",
+		"name": "INK（墨链）",
+		"token": "INK"
+	},
+	{
+		"id": "gifto",
+		"name": "Gifto",
+		"token": "GTO",
+		"twitter": "https://twitter.com/gifto_io"
+	},
+	{
+		"id": "bibox-token",
+		"name": "Bibox",
+		"token": "BIX",
+		"twitter": "https://twitter.com/Bibox365"
+	},
+	{
+		"id": "coinmeet",
+		"name": "CoinMeet",
+		"token": "MEE",
+		"twitter": "https://twitter.com/CoinMeetCoin"
+	},
+	{
+		"name": "蜂窝矿机",
+		"token": null
+	},
+	{
+		"name": "Cointime",
+		"token": null,
+		"twitter": "https://twitter.com/CoinTime_EN"
+	},
+	{
+		"name": "KEX",
+		"token": "kex"
+	},
+	{
+		"name": "知帆科技",
+		"token": null
+	},
+	{
+		"name": "cointiger",
+		"token": null,
+		"twitter": "https://twitter.com/cointiger_"
+	},
+	{
+		"name": "Atoken",
+		"token": null,
+		"twitter": "https://twitter.com/ATOKEN9"
+	},
+	{
+		"name": "库神",
+		"token": null,
+		"twitter": "https://twitter.com/Coldlar"
+	},
+	{
+		"name": "金色财经",
+		"token": null
+	},
+	{
+		"id": "genaro-network",
+		"name": "Genaro Network",
+		"token": "GNX",
+		"twitter": "https://twitter.com/GenaroNetwork"
+	},
+	{
+		"name": "jex",
+		"token": "jex",
+		"twitter": "https://twitter.com/JEX_Derivative"
+	},
+	{
+		"name": "链上科技",
+		"token": null
+	},
+	{
+		"id": "huobi-token",
+		"name": "火币",
+		"token": "HT",
+		"twitter": "https://twitter.com/Huobi_Pro"
+	},
+	{
+		"name": "博晨技术",
+		"token": null
+	}
+]
