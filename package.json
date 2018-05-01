@@ -1,5 +1,5 @@
 {
-	"name": "wechat-bot-demo",
+	"name": "nodecap-bot",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -12,6 +12,7 @@
 		"node-schedule": "^1.3.0",
 		"qrcode-terminal": "^0.12.0",
 		"request": "^2.85.0",
+		"request-promise": "^4.2.2",
 		"twit": "^2.2.9",
 		"wechaty": "^0.14.1"
 	},

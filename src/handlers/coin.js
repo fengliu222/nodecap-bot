@@ -1,4 +1,5 @@
 const request = require('request')
+const requestPromise = require('request-promise')
 const accounting = require('accounting')
 
 const requestTotalMarketCap = message => {
@@ -81,6 +82,16 @@ const handleCoinMsg = message => {
 	request100Token(message)
 }
 
+const getTokenInfo = async project => {
+	if (!project.id) return
+	const [data] = await requestPromise({
+		uri: `https://api.coinmarketcap.com/v1/ticker/${project.id}/?convert=CNY`,
+		json: true
+	})
+	return data
+}
+
 module.exports = {
-	handleCoinMsg
+	handleCoinMsg,
+	getTokenInfo
 }

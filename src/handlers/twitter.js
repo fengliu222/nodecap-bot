@@ -18,7 +18,7 @@ const T = new Twit({
 const handleTwitterRequest = async () => {
 	const room = await Room.find({ topic: '节点-产品技术Mafia' })
 	if (!room) return
-	T.get('statuses/home_timeline', { count: 20 }, (err, data, res) => {
+	T.get('statuses/home_timeline', { count: 20 }, (err, data) => {
 		if (err) return
 		const content = data.map(d => d.text)
 		Translate.translate(content, 'zh-CN', (err, translation) => {
@@ -39,6 +39,18 @@ const handleTwitterRequest = async () => {
 	})
 }
 
+const getLatestTweet = project => {
+	T.get(
+		'statuses/user_timeline',
+		{ screen_name: project.twitter },
+		(err, data) => {
+			console.log(err)
+			console.log(data)
+		}
+	)
+}
+
 module.exports = {
-	handleTwitterRequest
+	handleTwitterRequest,
+	getLatestTweet
 }
