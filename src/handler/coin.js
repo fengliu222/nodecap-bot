@@ -84,11 +84,15 @@ const handleCoinMsg = message => {
 
 const getTokenInfo = async project => {
 	if (!project.id) return
-	const [data] = await requestPromise({
-		uri: `https://api.coinmarketcap.com/v1/ticker/${project.id}/?convert=CNY`,
-		json: true
-	})
-	return data
+	try {
+		const [data] = await requestPromise({
+			uri: `https://api.coinmarketcap.com/v1/ticker/${project.id}/?convert=CNY`,
+			json: true
+		})
+		return Promise.resolve(data)
+	} catch (error) {
+		return Promise.reject(error)
+	}
 }
 
 module.exports = {
