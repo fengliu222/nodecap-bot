@@ -5,8 +5,7 @@ const Schedule = require('node-schedule')
 
 // modules
 const { handleCoinMsg } = require('./handlers/coin')
-const { handleExchangeMsg } = require('./handlers/exchange')
-const { handleTwitterRequest } = require('./handlers/twitter')
+const { generateReport } = require('./handlers/report')
 
 const bot = Wechaty.instance()
 var job
@@ -23,8 +22,8 @@ bot
 		console.log(`${user} login`)
 
 		// start scheduler
-		job = Schedule.scheduleJob('0 0 7 * * *', () => {
-			handleTwitterRequest()
+		job = Schedule.scheduleJob('0 0 18 * * *', () => {
+			generateReport()
 		})
 	})
 	.on('friend', async (contact, request) => {
@@ -68,7 +67,6 @@ bot
 		}
 
 		await handleCoinMsg(message)
-		await handleExchangeMsg(message)
 
 		// message.say('Sorry, 听不太懂了-_-')
 	})
