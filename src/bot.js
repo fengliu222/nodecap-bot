@@ -4,8 +4,8 @@ const QRCode = require('qrcode-terminal')
 const Schedule = require('node-schedule')
 
 // modules
-const { handleCoinMsg } = require('./handlers/coin')
-const { generateReport } = require('./handlers/report')
+const { handleCoinMsg } = require('./handler/coin')
+const { generateReport } = require('./handler/report')
 
 const bot = Wechaty.instance()
 var job

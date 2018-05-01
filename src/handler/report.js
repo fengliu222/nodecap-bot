@@ -9,12 +9,16 @@ const generateReport = async () => {
 	// get project list
 	const projects = require('../data/projects.json')
 
-	// getLatestTweet(projects[2])
-	const prices = projects.forEach(async p => {
-		const data = await getTokenInfo(p)
-		if (data) {
-			console.log(data)
-		}
+	// iterate
+	projects.forEach(async p => {
+		// const tokenInfo = await getTokenInfo(p)
+		const tweet = await getLatestTweet(p)
+		// if (tokenInfo) {
+		// 	console.log(tokenInfo)
+		// }
+		// if (tweet) {
+		// 	console.log(tweet)
+		// }
 	})
 }
 
