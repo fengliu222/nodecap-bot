@@ -42,6 +42,5 @@ const getLatestTweet = async project => {
 }
 
 module.exports = {
-	// handleTwitterRequest,
 	getLatestTweet
 }

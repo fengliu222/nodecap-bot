@@ -1,6 +1,7 @@
 const requestPromise = require('request-promise')
 
 const getProjectNews = async project => {
+	if (!project.name) return
 	try {
 		const {
 			list: [news]

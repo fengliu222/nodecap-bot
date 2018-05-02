@@ -36,7 +36,7 @@
 	},
 	{
 		"id": "show",
-		"name": "showone（秀币）",
+		"name": "showone",
 		"token": "SHOW",
 		"twitter": "Show_coin"
 	},
@@ -160,7 +160,7 @@
 	},
 	{
 		"id": "electronic-pk-chain",
-		"name": "电竞链（EPC）",
+		"name": "电竞链",
 		"token": "EPC",
 		"twitter": "ElectronicPk"
 	},
@@ -183,7 +183,7 @@
 	},
 	{
 		"id": "maggie",
-		"name": "麦奇（MAG）",
+		"name": "麦奇",
 		"token": "MAG",
 		"twitter": "Maggie_Tweet"
 	},
@@ -309,7 +309,7 @@
 	},
 	{
 		"id": "prochain",
-		"name": "Prochain（般若）",
+		"name": "Prochain",
 		"token": "PRA",
 		"twitter": "ProChainTech"
 	},
@@ -332,7 +332,7 @@
 		"twitter": "Space__Chain"
 	},
 	{
-		"name": "coinpaws（币爪）",
+		"name": "coinpaws",
 		"token": "cps"
 	},
 	{
@@ -389,7 +389,7 @@
 	},
 	{
 		"id": "ink",
-		"name": "INK（墨链）",
+		"name": "INK",
 		"token": "INK"
 	},
 	{

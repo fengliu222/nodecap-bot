@@ -2,15 +2,20 @@
 const { Wechaty } = require('wechaty')
 const QRCode = require('qrcode-terminal')
 const Schedule = require('node-schedule')
+const Raven = require('raven')
 
 // modules
 const { handleCoinMsg } = require('./handler/coin')
 const { generateReport } = require('./handler/report')
 
-const bot = Wechaty.instance()
-var job
+// Raven init
+Raven.config(
+	'https://ec41621ea39d46a2bc8cf0acab3fac43@sentry.io/1199485'
+).install()
 
-bot
+// Start wechaty
+var job
+Wechaty.instance()
 	.on('scan', (url, code) => {
 		if (/201|200/.test(code)) {
 			return
