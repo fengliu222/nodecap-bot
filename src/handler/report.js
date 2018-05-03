@@ -69,7 +69,7 @@ const createReport = r => {
 }
 
 const generateReport = async () => {
-	const room = await Room.find({ topic: '节点-产品技术Mafia' })
+	const room = await Room.find({ topic: '项目动态-产品设计' })
 	if (!room) return
 
 	// get project list
