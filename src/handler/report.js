@@ -25,6 +25,8 @@ const requestPeport = async p => {
 		const news = await getProjectNews(p)
 		if (news) {
 			project['news'] = news.content
+			project['up_counts'] = news.up_counts
+			project['down_counts'] = news.down_counts
 
 			await delay(1000)
 			const tokenInfo = await getTokenInfo(p)
@@ -32,7 +34,6 @@ const requestPeport = async p => {
 				project['price_usd'] = tokenInfo.price_usd
 				project['price_cny'] = tokenInfo.price_cny
 				project['rank'] = tokenInfo.rank
-				project['percent_change_1h'] = tokenInfo.percent_change_1h
 				project['percent_change_24h'] = tokenInfo.percent_change_24h
 				project['percent_change_7d'] = tokenInfo.percent_change_7d
 			}
@@ -55,17 +56,18 @@ const createReport = r => {
 			'￥'
 		)}\n`) ||
 		''}`
-	const percentage_change = `${(r.percent_change_1h &&
-		r.percent_change_24h &&
+	const percentage_change = `${(r.percent_change_24h &&
 		r.percent_change_7d &&
 		`涨跌幅：${formatPercentage(
-			r.percent_change_1h
-		)} (1小时), ${formatPercentage(
 			r.percent_change_24h
 		)} (24小时), ${formatPercentage(r.percent_change_7d)} (7天)\n`) ||
 		''}`
+	const communityFeedback = `${(r.up_counts &&
+		r.down_counts &&
+		`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
+		''}`
 
-	return `${title}${news}${price}${percentage_change}`
+	return `${title}${news}${price}${percentage_change}${communityFeedback}`
 }
 
 const generateReport = async () => {
@@ -81,7 +83,7 @@ const generateReport = async () => {
 		.filter(r => r.news)
 		.map(createReport)
 		.join('\n')
-	report_text = `节点投后跟踪汇总(${moment().format('L')})：\n\n${report_text}`
+	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
 
 	// say it
 	room.say(report_text)
