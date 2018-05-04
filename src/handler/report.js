@@ -67,7 +67,7 @@ const createReport = r => {
 		`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
 		''}`
 
-	return `${title}${news}${price}${percentage_change}${communityFeedback}`
+	return `${title}${news}${price}${percentage_change}`
 }
 
 const generateReport = async () => {
