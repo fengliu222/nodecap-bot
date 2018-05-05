@@ -24,10 +24,10 @@ const requestPeport = async p => {
 		const news = await getProjectNews(p)
 		if (news) {
 			// date compare
-			const currentTime = moment()
-			const newsTime = moment(news.created_at)
+			const newsDate = moment(news.created_at)
+			const targetDate = moment().subtract(3, 'days')
 
-			if (currentTime.isSame(newsTime, 'day')) {
+			if (newsDate.isSameOrAfter(targetDate)) {
 				p['news'] = news.content
 				p['up_counts'] = news.up_counts
 				p['down_counts'] = news.down_counts
@@ -83,10 +83,11 @@ const generateReport = async () => {
 
 	// iterate
 	const report_raw = await generateReportData(projects)
-	let report_text = report_raw
-		.filter(r => r.news)
-		.map(createReport)
-		.join('\n')
+	let report_text =
+		report_raw
+			.filter(r => r.news)
+			.map(createReport)
+			.join('\n') || '今日暂无项目投后动态-_-'
 	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
 
 	// say it
