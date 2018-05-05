@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "node src/bot.js",
-		"start-monitor": "nodemon src/bot.js"
+		"start-monitor": "nodemon src/bot.js",
+		"test-report": "nodemon src/test.js"
 	},
 	"dependencies": {
 		"accounting": "^0.4.1",

@@ -19,23 +19,27 @@ const generateReportData = async projects => {
 }
 
 const requestPeport = async p => {
-	const project = p
 	try {
-		await delay(1000)
+		await delay(2000)
 		const news = await getProjectNews(p)
 		if (news) {
-			project['news'] = news.content
-			project['up_counts'] = news.up_counts
-			project['down_counts'] = news.down_counts
+			// date compare
+			const currentTime = moment()
+			const newsTime = moment(news.created_at)
 
-			await delay(1000)
-			const tokenInfo = await getTokenInfo(p)
-			if (tokenInfo) {
-				project['price_usd'] = tokenInfo.price_usd
-				project['price_cny'] = tokenInfo.price_cny
-				project['rank'] = tokenInfo.rank
-				project['percent_change_24h'] = tokenInfo.percent_change_24h
-				project['percent_change_7d'] = tokenInfo.percent_change_7d
+			if (currentTime.isSame(newsTime, 'day')) {
+				p['news'] = news.content
+				p['up_counts'] = news.up_counts
+				p['down_counts'] = news.down_counts
+
+				// request token
+				const tokenInfo = await getTokenInfo(p)
+				if (tokenInfo) {
+					p['price_usd'] = tokenInfo.price_usd
+					p['price_cny'] = tokenInfo.price_cny
+					p['percent_change_24h'] = tokenInfo.percent_change_24h
+					p['percent_change_7d'] = tokenInfo.percent_change_7d
+				}
 			}
 		}
 	} catch (e) {
@@ -43,7 +47,7 @@ const requestPeport = async p => {
 			Raven.captureException(e)
 		}
 	}
-	return project
+	return p
 }
 
 const createReport = r => {
@@ -71,8 +75,8 @@ const createReport = r => {
 }
 
 const generateReport = async () => {
-	const room = await Room.find({ topic: '项目动态-产品设计' })
-	if (!room) return
+	// const room = await Room.find({ topic: '项目动态-产品设计' })
+	// if (!room) return
 
 	// get project list
 	const projects = require('../data/projects.json')
@@ -86,8 +90,8 @@ const generateReport = async () => {
 	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
 
 	// say it
-	room.say(report_text)
-	// console.log(report_text)
+	// room.say(report_text)
+	console.log(report_text)
 }
 
 module.exports = {
