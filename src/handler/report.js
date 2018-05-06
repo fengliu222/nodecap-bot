@@ -4,6 +4,7 @@ const accounting = require('accounting')
 const Raven = require('raven')
 
 const { getProjectNews } = require('./news')
+const { getLatestTweet } = require('./twitter')
 const { getTokenInfo } = require('./coin')
 const { delay, formatPercentage } = require('../helper/common')
 
@@ -18,28 +19,43 @@ const generateReportData = async projects => {
 	return reportData
 }
 
+const inDateRange = date => {
+	const sourceDate = moment(date)
+	const targetDate = moment().subtract(3, 'days')
+	return sourceDate.isSameOrAfter(targetDate)
+}
+
 const requestPeport = async p => {
 	try {
-		await delay(2000)
+		// news
+		await delay(500)
 		const news = await getProjectNews(p)
 		if (news) {
-			// date compare
-			const newsDate = moment(news.created_at)
-			const targetDate = moment().subtract(3, 'days')
-
-			if (newsDate.isSameOrAfter(targetDate)) {
+			if (inDateRange(news.created_at)) {
 				p['news'] = news.content
 				p['up_counts'] = news.up_counts
 				p['down_counts'] = news.down_counts
+			}
+		}
 
-				// request token
-				const tokenInfo = await getTokenInfo(p)
-				if (tokenInfo) {
-					p['price_usd'] = tokenInfo.price_usd
-					p['price_cny'] = tokenInfo.price_cny
-					p['percent_change_24h'] = tokenInfo.percent_change_24h
-					p['percent_change_7d'] = tokenInfo.percent_change_7d
-				}
+		// tweet
+		await delay(500)
+		const tweet = await getLatestTweet(p)
+		if (tweet) {
+			// if (inDateRange(tweet.created_at)) {
+			p['tweet'] = tweet.text
+			// }
+		}
+
+		// token info
+		if (p.news || p.tweet) {
+			// request token
+			const tokenInfo = await getTokenInfo(p)
+			if (tokenInfo) {
+				p['price_usd'] = tokenInfo.price_usd
+				p['price_cny'] = tokenInfo.price_cny
+				p['percent_change_24h'] = tokenInfo.percent_change_24h
+				p['percent_change_7d'] = tokenInfo.percent_change_7d
 			}
 		}
 	} catch (e) {
@@ -53,6 +69,7 @@ const requestPeport = async p => {
 const createReport = r => {
 	const title = `${r.name}${(r.token && ` (${r.token}) `) || ''}：\n\n`
 	const news = `${(r.news && `动态：${r.news}\n`) || ''}`
+	const tweet = `${(r.tweet && `Twitter：${r.tweet}\n`) || ''}`
 	const price = `${(r.price_usd &&
 		r.price_cny &&
 		`现价：${accounting.formatMoney(r.price_usd)}/${accounting.formatMoney(
@@ -71,7 +88,7 @@ const createReport = r => {
 		`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
 		''}`
 
-	return `${title}${news}${price}${percentage_change}`
+	return `${title}${news}${tweet}${price}${percentage_change}`
 }
 
 const generateReport = async () => {
@@ -85,7 +102,7 @@ const generateReport = async () => {
 	const report_raw = await generateReportData(projects)
 	let report_text =
 		report_raw
-			.filter(r => r.news)
+			.filter(r => r.news || r.tweet)
 			.map(createReport)
 			.join('\n') || '今日暂无项目投后动态-_-'
 	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
