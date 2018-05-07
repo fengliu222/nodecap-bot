@@ -20,21 +20,22 @@ const generateReportData = async projects => {
 }
 
 const inDateRange = date => {
-	const sourceDate = moment(date)
-	const targetDate = moment().subtract(3, 'days')
-	return sourceDate.isSameOrAfter(targetDate)
+	// const targetDate = moment().subtract(3, 'days')
+	// return date.isSameOrAfter(targetDate)
+	return date.isSame(moment(), 'day')
 }
 
 const requestPeport = async p => {
 	try {
 		// news
 		await delay(500)
-		const news = await getProjectNews(p)
-		if (news) {
-			if (inDateRange(news.created_at)) {
+		const res = await getProjectNews(p)
+		if (res) {
+			const { news, date } = res
+			if (inDateRange(moment(date, 'YYYY-MM-DD'))) {
 				p['news'] = news.content
-				p['up_counts'] = news.up_counts
-				p['down_counts'] = news.down_counts
+				// p['up_counts'] = news.up_counts
+				// p['down_counts'] = news.down_counts
 			}
 		}
 
@@ -83,10 +84,10 @@ const createReport = r => {
 			r.percent_change_24h
 		)} (24小时), ${formatPercentage(r.percent_change_7d)} (7天)\n`) ||
 		''}`
-	const communityFeedback = `${(r.up_counts &&
-		r.down_counts &&
-		`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
-		''}`
+	// const communityFeedback = `${(r.up_counts &&
+	// 	r.down_counts &&
+	// 	`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
+	// 	''}`
 
 	return `${title}${news}${tweet}${price}${percentage_change}`
 }

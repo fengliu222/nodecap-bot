@@ -17,9 +17,13 @@ const getProjectNews = async project => {
 		})
 		if (news) {
 			const {
-				lives: [item]
+				lives: [item],
+				date
 			} = news
-			return Promise.resolve(item)
+			return Promise.resolve({
+				news: item,
+				date
+			})
 		}
 		return Promise.reject(news)
 	} catch (error) {
