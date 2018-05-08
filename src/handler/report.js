@@ -26,21 +26,20 @@ const inDateRange = date => {
 }
 
 const requestPeport = async p => {
+	await delay(5000)
 	try {
 		// news
-		await delay(500)
 		const res = await getProjectNews(p)
 		if (res) {
 			const { news, date } = res
-			if (inDateRange(moment(date, 'YYYY-MM-DD'))) {
-				p['news'] = news.content
-				// p['up_counts'] = news.up_counts
-				// p['down_counts'] = news.down_counts
-			}
+			// if (inDateRange(moment(date, 'YYYY-MM-DD'))) {
+			p['news'] = news.content
+			// p['up_counts'] = news.up_counts
+			// p['down_counts'] = news.down_counts
+			// }
 		}
 
 		// tweet
-		await delay(500)
 		const tweet = await getLatestTweet(p)
 		if (tweet) {
 			// if (inDateRange(tweet.created_at)) {

@@ -27,7 +27,7 @@ Wechaty.instance()
 		console.log(`${user} login`)
 
 		// start scheduler
-		job = Schedule.scheduleJob('0 0 21 * * *', () => {
+		job = Schedule.scheduleJob('47 20 * * *', () => {
 			generateReport()
 		})
 	})
