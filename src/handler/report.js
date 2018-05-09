@@ -62,7 +62,7 @@ const requestPeport = async p => {
 					percent_change_7d
 				} = tokenInfo
 				// check percentage change abs
-				if (Math.abs(percent_change_24h) >= 5) {
+				if (Math.abs(percent_change_24h) > 10) {
 					p['price_usd'] = price_usd
 					p['price_cny'] = price_cny
 					p['percent_change_24h'] = percent_change_24h
