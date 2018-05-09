@@ -55,10 +55,19 @@ const requestPeport = async p => {
 			// request token
 			const tokenInfo = await getTokenInfo(p)
 			if (tokenInfo) {
-				p['price_usd'] = tokenInfo.price_usd
-				p['price_cny'] = tokenInfo.price_cny
-				p['percent_change_24h'] = tokenInfo.percent_change_24h
-				p['percent_change_7d'] = tokenInfo.percent_change_7d
+				const {
+					price_usd,
+					price_cny,
+					percent_change_24h,
+					percent_change_7d
+				} = tokenInfo
+				// check percentage change abs
+				if (Math.abs(percent_change_24h) >= 5) {
+					p['price_usd'] = price_usd
+					p['price_cny'] = price_cny
+					p['percent_change_24h'] = percent_change_24h
+					p['percent_change_7d'] = percent_change_7d
+				}
 			}
 		}
 	} catch (e) {
@@ -112,7 +121,6 @@ const generateReport = async () => {
 
 	// say it
 	room.say(report_text)
-	// console.log(report_text)
 }
 
 module.exports = {
