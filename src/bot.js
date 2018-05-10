@@ -14,7 +14,8 @@ Raven.config(
 ).install()
 
 // Start wechaty
-var job
+var dailyReport
+var priceAlert
 Wechaty.instance()
 	.on('scan', (url, code) => {
 		if (/201|200/.test(code)) {
@@ -26,9 +27,14 @@ Wechaty.instance()
 	.on('login', user => {
 		console.log(`${user} login`)
 
-		// start scheduler
-		job = Schedule.scheduleJob('47 20 * * *', () => {
+		// daily report scheduler
+		dailyReport = Schedule.scheduleJob('47 20 * * *', () => {
 			generateReport()
+		})
+
+		// price alert scheduler
+		priceAlert = Schedule.scheduleJob('0 0-23 * * *', () => {
+			// get hourly price
 		})
 	})
 	.on('friend', async (contact, request) => {
@@ -79,6 +85,7 @@ Wechaty.instance()
 		console.log(`${user} logout`)
 
 		// cancel scheduler
-		job.cancel()
+		dailyReport.cancel()
+		priceAlert.cancel()
 	})
 	.start()
