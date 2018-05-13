@@ -14,16 +14,14 @@ const generateReportData = async projects => {
 	const room = await Room.find({ topic: '项目动态-产品设计' })
 	if (!room) return
 
-	let reportData = []
+	room.say(`${moment().year()}年第${moment().week()}周投后周报：\n\n`)
 	for (const item of projects) {
 		const data = await requestPeport(item)
 		if (data.news) {
 			const text = createReport(data)
 			room.say(text)
 		}
-		reportData = [...reportData, data]
 	}
-	return reportData
 }
 
 const requestPeport = async p => {
@@ -57,7 +55,7 @@ const requestPeport = async p => {
 					percent_change_7d
 				} = tokenInfo
 				// check percentage change abs
-				if (Math.round(percent_change_7h) > 15) {
+				if (Math.round(percent_change_7d) > 15) {
 					p['price_usd'] = price_usd
 					p['price_cny'] = price_cny
 					p['percent_change_24h'] = percent_change_24h
@@ -94,25 +92,10 @@ const createReport = r => {
 	return `${title}${news}${price}${percentage_change}`
 }
 
-const generateWeeklyReport = async () => {
-	// const room = await Room.find({ topic: '项目动态-产品设计' })
-	// if (!room) return
-
+const generateWeeklyReport = () => {
 	// get project list
 	const projects = require('../../data/projects.json')
-
-	// iterate
-	const report_raw = await generateReportData(projects)
-	let report_text =
-		report_raw
-			.filter(r => r.news)
-			.map(createReport)
-			.join('\n') || '本周暂无项目投后动态-_-'
-	report_text = `${moment().year()}年第${moment().week()}周投后周报：\n\n${report_text}`
-
-	// say it
-	// room.say(report_text)
-	// console.log(report_text)
+	generateReportData(projects)
 }
 
 module.exports = {
