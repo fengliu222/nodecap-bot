@@ -33,7 +33,7 @@ Wechaty.instance()
 			generateReport()
 		})
 
-		weeklyJob = Schedule.scheduledJob('17 21 * * 7', () => {
+		weeklyJob = Schedule.scheduleJob('17 21 * * 7', () => {
 			generateWeeklyReport()
 		})
 	})
