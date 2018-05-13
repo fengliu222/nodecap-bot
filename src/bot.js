@@ -7,6 +7,7 @@ const Raven = require('raven')
 // modules
 const { handleCoinMsg } = require('./handler/coin')
 const { generateReport } = require('./handler/report')
+const { generateWeeklyReport } = require('./handler/report/weekly')
 
 // Raven init
 Raven.config(
@@ -14,7 +15,8 @@ Raven.config(
 ).install()
 
 // Start wechaty
-var job
+var dailyJob
+var weeklyJob
 Wechaty.instance()
 	.on('scan', (url, code) => {
 		if (/201|200/.test(code)) {
@@ -27,8 +29,12 @@ Wechaty.instance()
 		console.log(`${user} login`)
 
 		// start scheduler
-		job = Schedule.scheduleJob('47 20 * * *', () => {
+		dailyJob = Schedule.scheduleJob('47 20 * * *', () => {
 			generateReport()
+		})
+
+		weeklyJob = Schedule.scheduledJob('17 21 * * 7', () => {
+			generateWeeklyReport()
 		})
 	})
 	.on('friend', async (contact, request) => {
@@ -79,6 +85,7 @@ Wechaty.instance()
 		console.log(`${user} logout`)
 
 		// cancel scheduler
-		job.cancel()
+		dailyJob.cancel()
+		weeklyJob.cancel()
 	})
 	.start()

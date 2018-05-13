@@ -3,10 +3,10 @@ const { Room } = require('wechaty')
 const accounting = require('accounting')
 const Raven = require('raven')
 
-const { getProjectNews } = require('./news')
-const { getLatestTweet } = require('./twitter')
-const { getTokenInfo } = require('./coin')
-const { delay, formatPercentage } = require('../helper/common')
+const { getProjectWeeklyNews } = require('../news')
+// const { getLatestTweet } = require('../twitter')
+const { getTokenInfo } = require('../coin')
+const { delay, formatPercentage } = require('../../helper/common')
 
 moment.locale('zh-cn')
 
@@ -19,36 +19,24 @@ const generateReportData = async projects => {
 	return reportData
 }
 
-const inDateRange = date => {
-	// const targetDate = moment().subtract(3, 'days')
-	// return date.isSameOrAfter(targetDate)
-	return date.isSame(moment(), 'day')
-}
-
 const requestPeport = async p => {
 	try {
 		await delay(5000)
 
 		// news
-		const res = await getProjectNews(p)
-		if (res) {
-			const { news, date } = res
-			const newsDate = moment(date)
-			if (inDateRange(newsDate)) {
-				p['news'] = news.content
-				p['up_counts'] = news.up_counts
-				p['down_counts'] = news.down_counts
-			}
+		const news = await getProjectWeeklyNews(p)
+		if (news) {
+			p['news'] = news.map(n => ({ date: n.date, content: n.lives[0].content }))
 		}
 
-		// tweet
-		const tweet = await getLatestTweet(p)
-		if (tweet) {
-			const tweetDate = moment(tweet.created_at)
-			if (inDateRange(tweetDate)) {
-				p['tweet'] = tweet.text
-			}
-		}
+		// // tweet
+		// const tweet = await getLatestTweet(p)
+		// if (tweet) {
+		// 	const tweetDate = moment(tweet.created_at)
+		// 	if (inDateRange(tweetDate)) {
+		// 		p['tweet'] = tweet.text
+		// 	}
+		// }
 
 		// token info
 		if (p.news || p.tweet) {
@@ -62,7 +50,7 @@ const requestPeport = async p => {
 					percent_change_7d
 				} = tokenInfo
 				// check percentage change abs
-				if (Math.abs(percent_change_24h) > 10) {
+				if (Math.round(percent_change_7h) > 15) {
 					p['price_usd'] = price_usd
 					p['price_cny'] = price_cny
 					p['percent_change_24h'] = percent_change_24h
@@ -80,8 +68,8 @@ const requestPeport = async p => {
 
 const createReport = r => {
 	const title = `${r.name}${(r.token && ` (${r.token}) `) || ''}：\n\n`
-	const news = `${(r.news && `动态：${r.news}\n`) || ''}`
-	const tweet = `${(r.tweet && `Twitter：${r.tweet}\n`) || ''}`
+	let news = r.news.map(n => `${n.date}：${n.content}`).join('\n')
+	// news = `${(news && `动态：\n${news}\n`) || ''}`
 	const price = `${(r.price_usd &&
 		r.price_cny &&
 		`现价：${accounting.formatMoney(r.price_usd)}/${accounting.formatMoney(
@@ -95,34 +83,31 @@ const createReport = r => {
 			r.percent_change_24h
 		)} (24小时), ${formatPercentage(r.percent_change_7d)} (7天)\n`) ||
 		''}`
-	// const communityFeedback = `${(r.up_counts &&
-	// 	r.down_counts &&
-	// 	`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
-	// 	''}`
 
-	return `${title}${news}${tweet}${price}${percentage_change}`
+	return `${title}${news}${price}${percentage_change}`
 }
 
-const generateReport = async () => {
+const generateWeeklyReport = async () => {
 	const room = await Room.find({ topic: '项目动态-产品设计' })
 	if (!room) return
 
 	// get project list
-	const projects = require('../data/projects.json')
+	const projects = require('../../data/projects.json')
 
 	// iterate
 	const report_raw = await generateReportData(projects)
 	let report_text =
 		report_raw
-			.filter(r => r.news || r.tweet)
+			.filter(r => r.news)
 			.map(createReport)
-			.join('\n') || '今日暂无项目投后动态-_-'
-	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
+			.join('\n') || '本周暂无项目投后动态-_-'
+	report_text = `${moment().year()}年第${moment().week()}周投后周报：\n\n${report_text}`
 
 	// say it
 	room.say(report_text)
+	// console.log(report_text)
 }
 
 module.exports = {
-	generateReport
+	generateWeeklyReport
 }
