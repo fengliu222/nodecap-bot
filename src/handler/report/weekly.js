@@ -11,10 +11,16 @@ const { delay, formatPercentage } = require('../../helper/common')
 moment.locale('zh-cn')
 
 const generateReportData = async projects => {
+	const room = await Room.find({ topic: '项目动态-产品设计' })
+	if (!room) return
+
 	let reportData = []
 	for (const item of projects) {
 		const data = await requestPeport(item)
-		console.log(data)
+		if (data.news) {
+			const text = createReport(data)
+			room.say(text)
+		}
 		reportData = [...reportData, data]
 	}
 	return reportData
@@ -89,8 +95,8 @@ const createReport = r => {
 }
 
 const generateWeeklyReport = async () => {
-	const room = await Room.find({ topic: '项目动态-产品设计' })
-	if (!room) return
+	// const room = await Room.find({ topic: '项目动态-产品设计' })
+	// if (!room) return
 
 	// get project list
 	const projects = require('../../data/projects.json')
@@ -105,7 +111,7 @@ const generateWeeklyReport = async () => {
 	report_text = `${moment().year()}年第${moment().week()}周投后周报：\n\n${report_text}`
 
 	// say it
-	room.say(report_text)
+	// room.say(report_text)
 	// console.log(report_text)
 }
 

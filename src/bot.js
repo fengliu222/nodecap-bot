@@ -36,6 +36,7 @@ Wechaty.instance()
 		weeklyJob = Schedule.scheduleJob('17 21 * * 7', () => {
 			generateWeeklyReport()
 		})
+		generateWeeklyReport()
 	})
 	.on('friend', async (contact, request) => {
 		if (request) {
