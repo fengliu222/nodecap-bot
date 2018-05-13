@@ -14,6 +14,7 @@ const generateReportData = async projects => {
 	let reportData = []
 	for (const item of projects) {
 		const data = await requestPeport(item)
+		console.log(data)
 		reportData = [...reportData, data]
 	}
 	return reportData
