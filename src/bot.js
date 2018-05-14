@@ -29,14 +29,13 @@ Wechaty.instance()
 		console.log(`${user} login`)
 
 		// start scheduler
-		dailyJob = Schedule.scheduleJob('47 20 * * *', () => {
+		dailyJob = Schedule.scheduleJob('50 20 * * *', () => {
 			generateReport()
 		})
 
-		weeklyJob = Schedule.scheduleJob('17 21 * * 7', () => {
+		weeklyJob = Schedule.scheduleJob('50 21 * * 7', () => {
 			generateWeeklyReport()
 		})
-		generateWeeklyReport()
 	})
 	.on('friend', async (contact, request) => {
 		if (request) {
