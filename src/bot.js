@@ -6,6 +6,7 @@ const Raven = require('raven')
 
 // modules
 const { handleCoinMsg } = require('./handler/coin')
+const { handleInvestmentQuery } = require('./handler/chat/investment')
 const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 
@@ -73,12 +74,8 @@ Wechaty.instance()
 			return
 		}
 
-		if (/hello|你好/.test(content)) {
-			message.say('你好，我是币汪')
-		}
-
 		await handleCoinMsg(message)
-
+		await handleInvestmentQuery(message)
 		// message.say('Sorry, 听不太懂了-_-')
 	})
 	.on('logout', user => {
