@@ -31,17 +31,33 @@ const formatRes = ({
 	description,
 	source,
 	token_name,
-	channel
+	channel,
+	site_url,
+	watch_user,
+	review,
+	region,
+	own_ratio,
+	status_comment
 }) => {
 	const project_name = `${name}${(token_name && ` (${token_name}) `) ||
 		''}：\n\n`
 	const project_desc = `${(description && `${description}\n\n`) || ''}`
-	const project_status = `${(status && `项目状态：${statusMapper(status)}\n`) ||
+	const project_status = `${(status && `状态：${statusMapper(status)}\n`) ||
 		''}`
-	const project_source = `${(source && `项目来源：${source}\n`) || ''}`
-	const project_channel = `${(channel && `项目渠道：${channel}\n`) || ''}`
+	const project_status_comment = `${(status_comment &&
+		`状态备注：${status_comment}\n`) ||
+		''}`
 
-	return `${project_name}${project_desc}${project_status}${project_source}${project_channel}`
+	const project_region = `${(region && `国别：${region}\n`) || ''}`
+	const project_channel = `${(channel && `渠道：${channel}\n`) || ''}`
+	const project_watch_user = `${(watch_user && `跟进人：${watch_user}\n`) ||
+		''}`
+	const project_own_ratio = `${(own_ratio && `团队持有比例：${own_ratio}\n`) ||
+		''}`
+	const project_site = `${(site_url && `官网：${site_url}\n`) || ''}`
+	const project_review = `${(review && `推荐语：${review}\n`) || ''}`
+
+	return `${project_name}${project_desc}${project_status}${project_status_comment}${project_region}${project_channel}${project_watch_user}${project_own_ratio}${project_review}${project_site}`
 }
 
 const statusMapper = status => {
