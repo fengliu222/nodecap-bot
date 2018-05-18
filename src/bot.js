@@ -62,21 +62,19 @@ Wechaty.instance()
 		const content = message.content()
 		const room = message.room()
 
-		if (room) {
-			console.log(
-				`Room: ${room.topic()} Contact: ${contact.name()}: ${content}`
-			)
-		} else {
-			console.log(`Contact: ${contact.name()}: ${content}`)
-		}
-
 		if (message.self()) {
 			return
 		}
 
+		if (room) {
+			const topic = await room.topic()
+			if (topic === 'QRB') {
+				await handleInvestmentQuery(message)
+				return
+			}
+		}
+
 		await handleCoinMsg(message)
-		await handleInvestmentQuery(message)
-		// message.say('Sorry, 听不太懂了-_-')
 	})
 	.on('logout', user => {
 		console.log(`${user} logout`)

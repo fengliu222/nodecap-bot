@@ -1,5 +1,6 @@
 const requestPromise = require('request-promise')
 const R = require('ramda')
+const Raven = require('raven')
 const { getTokenInfo, formatTokenInfo } = require('../coin')
 
 const queryInvestmentRepo = async q => {
@@ -18,7 +19,7 @@ const queryInvestmentRepo = async q => {
 		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
 			return Promise.resolve(data[0])
 		}
-		return Promise.reject(data)
+		return Promise.resolve(data)
 	} catch (error) {
 		return Promise.reject(error)
 	}
@@ -81,20 +82,29 @@ const statusMapper = status => {
 }
 
 const handleInvestmentQuery = async message => {
-	const room = await message.room().topic()
-	if (room !== 'QRB') {
-		return
-	}
-	// get params
-	const q = R.trim(message.content())
-	// project info
-	const project = await queryInvestmentRepo(q)
-	const projectInfo = formatRes(project)
-	// token info
-	const token = await getTokenInfo(q)
-	const tokenInfo = formatTokenInfo(token)
+	try {
+		// get params
+		const q = R.trim(message.content())
 
-	message.say(`${projectInfo}\n${tokenInfo}`)
+		// project info
+		const project = await queryInvestmentRepo(q)
+		if (!R.isEmpty(project)) {
+			const projectInfo = formatRes(project)
+			message.say(projectInfo)
+		}
+
+		// // token info
+		// const token = await getTokenInfo(q)
+		// if (!R.isEmpty(token)) {
+		// 	const tokenInfo = formatTokenInfo(token)
+		// 	msg = `${msg}\n${tokenInfo}`
+		// }
+	} catch (e) {
+		console.log(e)
+		if (e) {
+			Raven.captureException(e)
+		}
+	}
 }
 
 module.exports = {

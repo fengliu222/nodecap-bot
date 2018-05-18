@@ -27,7 +27,7 @@ const getTokenId = async token => {
 		if (!R.isNil(tokenObj)) {
 			return Promise.resolve(tokenObj.id)
 		}
-		return Promise.reject(tokenId)
+		return Promise.reject(tokenObj)
 	} catch (error) {
 		return Promise.reject(error)
 	}
@@ -46,7 +46,7 @@ const getTokenInfo = async token => {
 		if (!R.isNil(data)) {
 			return Promise.resolve(data)
 		}
-		return Promise.reject(data)
+		return Promise.resolve(data)
 	} catch (error) {
 		return Promise.reject(error)
 	}
