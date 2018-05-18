@@ -66,13 +66,13 @@ Wechaty.instance()
 			return
 		}
 
-		if (room) {
-			const topic = await room.topic()
-			if (topic === 'QRB') {
-				await handleInvestmentQuery(message)
-				return
-			}
-		}
+		// if (room) {
+		// 	const topic = await room.topic()
+		// 	if (topic === 'QRB') {
+		// 		await handleInvestmentQuery(message)
+		// 		return
+		// 	}
+		// }
 
 		await handleCoinMsg(message)
 	})

@@ -19,7 +19,7 @@ const queryInvestmentRepo = async q => {
 		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
 			return Promise.resolve(data[0])
 		}
-		return Promise.resolve(data)
+		return Promise.reject(data)
 	} catch (error) {
 		return Promise.reject(error)
 	}
@@ -88,19 +88,19 @@ const handleInvestmentQuery = async message => {
 
 		// project info
 		const project = await queryInvestmentRepo(q)
-		if (!R.isEmpty(project)) {
+		if (!R.isNil(project)) {
 			const projectInfo = formatRes(project)
-			message.say(projectInfo)
-		}
 
-		// // token info
-		// const token = await getTokenInfo(q)
-		// if (!R.isEmpty(token)) {
-		// 	const tokenInfo = formatTokenInfo(token)
-		// 	msg = `${msg}\n${tokenInfo}`
-		// }
+			// token info
+			const token = await getTokenInfo(project.token_name)
+			if (!R.isNil(token)) {
+				const tokenInfo = formatTokenInfo(token)
+				message.say(`${projectInfo}\n${tokenInfo}`)
+			} else {
+				message.say(projectInfo)
+			}
+		}
 	} catch (e) {
-		console.log(e)
 		if (e) {
 			Raven.captureException(e)
 		}
