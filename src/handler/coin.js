@@ -1,75 +1,8 @@
 const request = require('request')
 const requestPromise = require('request-promise')
 const accounting = require('accounting')
+const Raven = require('raven')
 const R = require('ramda')
-
-const requestTotalMarketCap = message => {
-	request.get(
-		'https://api.coinmarketcap.com/v1/global/?convert=CNY',
-		(error, res) => {
-			if (res && res.statusCode === 200) {
-				const {
-					total_market_cap_usd,
-					total_24h_volume_usd,
-					bitcoin_percentage_of_market_cap
-				} = JSON.parse(res.body)
-				message.say(
-					`总市值：${accounting.formatMoney(
-						total_market_cap_usd
-					)}\n24小时总交易量：${accounting.formatMoney(
-						total_24h_volume_usd
-					)}\nBTC占比：${bitcoin_percentage_of_market_cap}%`
-				)
-			}
-		}
-	)
-}
-
-const request100Token = message => {
-	const content = message.content().toLowerCase()
-	request.get(
-		'https://api.coinmarketcap.com/v1/ticker/?convert=CNY',
-		(error, res) => {
-			if (res && res.statusCode === 200) {
-				const data = JSON.parse(res.body)
-				const crypto = data.find(
-					c => c.id === content || c.symbol.toLowerCase() === content
-				)
-				if (crypto) {
-					let {
-						symbol,
-						rank,
-						price_usd,
-						price_cny,
-						percent_change_1h,
-						percent_change_24h,
-						percent_change_7d
-					} = crypto
-
-					// percentage formatting
-					percent_change_1h = `${
-						/-/.test(percent_change_1h) ? '↓' : '↑'
-					}${percent_change_1h}%`
-					percent_change_24h = `${
-						/-/.test(percent_change_24h) ? '↓' : '↑'
-					}${percent_change_24h}%`
-					percent_change_7d = `${
-						/-/.test(percent_change_7d) ? '↓' : '↑'
-					}${percent_change_7d}%`
-
-					message.say(
-						`币种：${symbol}\n市值排名：${rank}\n现价：${accounting.formatMoney(
-							price_usd
-						)}/${accounting.formatMoney(
-							price_cny,
-							'￥'
-						)}\n涨跌幅：\n${percent_change_1h}（1小时）\n${percent_change_24h}（1天）\n${percent_change_7d}（7天）`
-					)
-				}
-			}
-		}
-	)
-}
 
 const requestTokenList = async () => {
 	try {
@@ -119,21 +52,67 @@ const getTokenInfo = async token => {
 	}
 }
 
-const handleCoinMsg = message => {
-	const content = message.content().trim()
+const formatTokenInfo = info => {
+	// pre-handling
+	const percent_change_1h = R.path(['quotes', 'USD', 'percent_change_1h'])(info)
+	const percent_change_24h = R.path(['quotes', 'USD', 'percent_change_24h'])(
+		info
+	)
+	const percent_change_7d = R.path(['quotes', 'USD', 'percent_change_7d'])(info)
 
-	// total marketcap
-	if (content === '市值' || content === '总市值' || content === 'marketcap') {
-		requestTotalMarketCap(message)
+	// fields
+	const token = `币种：${R.path(['symbol'])(info)}（${R.path(['name'])(
+		info
+	)}）\n`
+	const rank = `市值排名：${R.path(['rank'])(info)}\n`
+	const price = `现价：${accounting.formatMoney(
+		R.path(['quotes', 'USD', 'price'])(info)
+	)} / ${accounting.formatMoney(
+		R.path(['quotes', 'CNY', 'price'])(info),
+		'￥'
+	)}\n`
+	const volume_24h = `24小时交易量：${accounting.formatMoney(
+		R.path(['quotes', 'USD', 'volume_24h'])(info)
+	)} / ${accounting.formatMoney(
+		R.path(['quotes', 'CNY', 'volume_24h'])(info),
+		'￥'
+	)}\n`
+	const market_cap = `总市值：${accounting.formatMoney(
+		R.path(['quotes', 'USD', 'market_cap'])(info)
+	)} / ${accounting.formatMoney(
+		R.path(['quotes', 'CNY', 'market_cap'])(info),
+		'￥'
+	)}\n`
+	const percent_change = `涨跌幅：\n${percentageFormat(
+		percent_change_1h
+	)}（1小时）\n${percentageFormat(
+		percent_change_24h
+	)}（1天）\n${percentageFormat(percent_change_7d)}（7天）`
+
+	return `${token}${rank}${price}${volume_24h}${market_cap}${percent_change}`
+}
+
+const percentageFormat = percentage => {
+	return `${/-/.test(percentage) ? '↓' : '↑'} ${percentage}%`
+}
+
+const handleCoinMsg = async message => {
+	const content = R.trim(message.content())
+	try {
+		const tokenInfo = await getTokenInfo(content)
+		// say it
+		message.say(formatTokenInfo(tokenInfo))
+	} catch (error) {
+		if (error) {
+			Raven.captureException(error)
+		}
 	}
-
-	// 100 tokens
-	request100Token(message)
 }
 
 module.exports = {
 	handleCoinMsg,
 	getTokenInfo,
 	requestTokenList,
-	getTokenId
+	getTokenId,
+	formatTokenInfo
 }

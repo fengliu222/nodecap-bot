@@ -1,5 +1,6 @@
 const requestPromise = require('request-promise')
 const R = require('ramda')
+const { getTokenInfo, formatTokenInfo } = require('../coin')
 
 const queryInvestmentRepo = async q => {
 	try {
@@ -84,10 +85,16 @@ const handleInvestmentQuery = async message => {
 	if (room !== 'QRB') {
 		return
 	}
-
+	// get params
 	const q = R.trim(message.content())
+	// project info
 	const project = await queryInvestmentRepo(q)
-	message.say(formatRes(project))
+	const projectInfo = formatRes(project)
+	// token info
+	const token = await getTokenInfo(q)
+	const tokenInfo = formatTokenInfo(token)
+
+	message.say(`${projectInfo}\n${tokenInfo}`)
 }
 
 module.exports = {
