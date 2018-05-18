@@ -2,6 +2,7 @@ const moment = require('moment')
 const { Room } = require('wechaty')
 const accounting = require('accounting')
 const Raven = require('raven')
+const R = require('ramda')
 
 const { getProjectNews } = require('../news')
 const { getLatestTweet } = require('../twitter')
@@ -54,20 +55,25 @@ const requestPeport = async p => {
 		// token info
 		if (p.news || p.tweet) {
 			// request token
-			const tokenInfo = await getTokenInfo(p)
-			if (tokenInfo) {
-				const {
-					price_usd,
-					price_cny,
-					percent_change_24h,
-					percent_change_7d
-				} = tokenInfo
-				// check percentage change abs
-				if (Math.abs(percent_change_24h) > 10) {
-					p['price_usd'] = price_usd
-					p['price_cny'] = price_cny
-					p['percent_change_24h'] = percent_change_24h
-					p['percent_change_7d'] = percent_change_7d
+			if (p.token) {
+				const tokenInfo = await getTokenInfo(p.token)
+				if (tokenInfo) {
+					const percent_change_24h = R.path([
+						'quotes',
+						'USD',
+						'percent_change_24h'
+					])(tokenInfo)
+					// check percentage change abs
+					if (Math.abs(percent_change_24h) > 10) {
+						p['price_usd'] = R.path(['quotes', 'USD', 'price'])(tokenInfo)
+						p['price_cny'] = R.path(['quotes', 'CNY', 'price'])(tokenInfo)
+						p['percent_change_24h'] = percent_change_24h
+						p['percent_change_7d'] = R.path([
+							'quotes',
+							'USD',
+							'percent_change_7d'
+						])(tokenInfo)
+					}
 				}
 			}
 		}

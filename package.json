@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node src/bot.js",
-		"start-monitor": "nodemon src/bot.js",
+		"start-mon": "nodemon src/bot.js",
 		"test": "nodemon src/test.js"
 	},
 	"dependencies": {

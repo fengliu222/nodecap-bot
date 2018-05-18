@@ -1,6 +1,7 @@
 const request = require('request')
 const requestPromise = require('request-promise')
 const accounting = require('accounting')
+const R = require('ramda')
 
 const requestTotalMarketCap = message => {
 	request.get(
@@ -70,6 +71,54 @@ const request100Token = message => {
 	)
 }
 
+const requestTokenList = async () => {
+	try {
+		const { data } = await requestPromise({
+			uri: 'https://api.coinmarketcap.com/v2/listings/',
+			json: true
+		})
+		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
+			return Promise.resolve(data)
+		}
+		return Promise.reject(data)
+	} catch (error) {
+		return Promise.reject(error)
+	}
+}
+
+const getTokenId = async token => {
+	try {
+		const list = await requestTokenList()
+		const capToken = R.toUpper(token)
+		const tokenObj = R.find(R.propEq('symbol', capToken))(list)
+		if (!R.isNil(tokenObj)) {
+			return Promise.resolve(tokenObj.id)
+		}
+		return Promise.reject(tokenId)
+	} catch (error) {
+		return Promise.reject(error)
+	}
+}
+
+const getTokenInfo = async token => {
+	try {
+		const tokenId = await getTokenId(token)
+		const { data } = await requestPromise({
+			uri: `https://api.coinmarketcap.com/v2/ticker/${tokenId}/`,
+			qs: {
+				convert: 'CNY'
+			},
+			json: true
+		})
+		if (!R.isNil(data)) {
+			return Promise.resolve(data)
+		}
+		return Promise.reject(data)
+	} catch (error) {
+		return Promise.reject(error)
+	}
+}
+
 const handleCoinMsg = message => {
 	const content = message.content().trim()
 
@@ -82,26 +131,9 @@ const handleCoinMsg = message => {
 	request100Token(message)
 }
 
-const getTokenInfo = async project => {
-	if (!project.id) return
-	try {
-		const [data] = await requestPromise({
-			uri: `https://api.coinmarketcap.com/v1/ticker/${project.id}`,
-			qs: {
-				convert: 'CNY'
-			},
-			json: true
-		})
-		if (data) {
-			return Promise.resolve(data)
-		}
-		return Promise.reject(data)
-	} catch (error) {
-		return Promise.reject(error)
-	}
-}
-
 module.exports = {
 	handleCoinMsg,
-	getTokenInfo
+	getTokenInfo,
+	requestTokenList,
+	getTokenId
 }

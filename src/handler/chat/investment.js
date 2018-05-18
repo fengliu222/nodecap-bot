@@ -6,8 +6,6 @@ const queryInvestmentRepo = async q => {
 		const data = await requestPromise({
 			uri: 'http://47.100.101.130/v1/projects',
 			qs: {
-				expand: 'white_papers,post_user,invest_token',
-				// status: '4,5,6',
 				q
 			},
 			headers: {
@@ -16,7 +14,7 @@ const queryInvestmentRepo = async q => {
 			json: true
 		})
 
-		if (!R.isEmpty(data)) {
+		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
 			return Promise.resolve(data[0])
 		}
 		return Promise.reject(data)
