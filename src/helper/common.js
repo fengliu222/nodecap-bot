@@ -1,9 +1,6 @@
 const delay = ms => new Promise(res => setTimeout(res, ms))
 const formatPercentage = p => {
-	if (p) {
-		return /-/.test(p) ? `${p.replace('-', '↓ ')}%` : `↑ ${p}%`
-	}
-	return null
+	return `${/-/.test(p) ? '↓' : '↑'} ${p}%`
 }
 
 module.exports = {
