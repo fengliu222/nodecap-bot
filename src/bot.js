@@ -49,9 +49,6 @@ Wechaty.instance()
 		console.log(
 			`Room ${room.topic()} got new member ${nameList}, invited by ${inviter}`
 		)
-
-		// say hello
-		room.say('雷猴')
 	})
 	.on('room-leave', (room, leaverList) => {
 		const nameList = leaverList.map(c => c.name()).join(',')
@@ -66,13 +63,37 @@ Wechaty.instance()
 			return
 		}
 
-		// if (room) {
-		// 	const topic = await room.topic()
-		// 	if (topic === 'QRB') {
-		// 		await handleInvestmentQuery(message)
-		// 		return
-		// 	}
-		// }
+		if (/你好/.test(content)) {
+			message.say('雷猴，我是币猴')
+		}
+
+		if (/图样|图森破/.test(content)) {
+			message.say('Sometimes Naïve')
+		}
+
+		if (/华莱士/.test(content)) {
+			message.say('不知道高到哪里去了')
+		}
+
+		if (/苟利国家生死以/.test(content)) {
+			message.say('岂因祸福避趋之')
+		}
+
+		if (/香港记者/.test(content)) {
+			message.say('跑得快')
+		}
+
+		if (/西方/.test(content)) {
+			message.say('哪个国家我没去过')
+		}
+
+		if (room) {
+			const topic = await room.topic()
+			if (topic === 'QRB') {
+				await handleInvestmentQuery(message)
+				return
+			}
+		}
 
 		await handleCoinMsg(message)
 	})

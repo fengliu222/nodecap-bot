@@ -1,6 +1,16 @@
 const requestPromise = require('request-promise')
 const moment = require('moment')
 
+const newsFilter = (name, content) => {
+	if (name === 'KEX' && /OKEX|okex/.test(content)) {
+		return false
+	}
+	if (name === 'INK' && /Link|link/.test(content)) {
+		return false
+	}
+	return true
+}
+
 const getProjectNews = async project => {
 	if (!project.name) return
 	try {
@@ -21,10 +31,12 @@ const getProjectNews = async project => {
 				lives: [item],
 				date
 			} = news
-			return Promise.resolve({
-				news: item,
-				date
-			})
+			if (newsFilter(project.name, item)) {
+				return Promise.resolve({
+					news: item,
+					date
+				})
+			}
 		}
 		return Promise.reject(news)
 	} catch (error) {
