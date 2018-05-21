@@ -82,29 +82,42 @@ const statusMapper = status => {
 }
 
 const handleInvestmentQuery = async message => {
+	// get params
+	const q = R.trim(message.content())
+
+	let content = ''
+	let project
 	try {
-		// get params
-		const q = R.trim(message.content())
-
 		// project info
-		const project = await queryInvestmentRepo(q)
+		project = await queryInvestmentRepo(q)
 		if (!R.isNil(project)) {
-			const projectInfo = formatRes(project)
-
-			// token info
-			const token = await getTokenInfo(project.token_name)
-			if (!R.isNil(token)) {
-				const tokenInfo = formatTokenInfo(token)
-				message.say(`${projectInfo}\n${tokenInfo}`)
-			} else {
-				message.say(projectInfo)
-			}
+			content = formatRes(project)
 		}
 	} catch (e) {
 		if (e) {
 			Raven.captureException(e)
 		}
 	}
+
+	if (project && R.isNil(project.token_name)) {
+		message.say(content)
+		return
+	}
+
+	try {
+		// token info
+		const token = await getTokenInfo(project.token_name)
+		if (!R.isNil(token)) {
+			const tokenInfo = formatTokenInfo(token)
+			content = `${content}\n${tokenInfo}`
+		}
+	} catch (e) {
+		if (e) {
+			Raven.captureException(e)
+		}
+	}
+
+	message.say(content)
 }
 
 module.exports = {

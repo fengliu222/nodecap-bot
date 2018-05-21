@@ -34,6 +34,7 @@ const getTokenId = async token => {
 }
 
 const getTokenInfo = async token => {
+	if (R.isNil(token)) return
 	try {
 		const tokenId = await getTokenId(token)
 		const { data } = await requestPromise({
