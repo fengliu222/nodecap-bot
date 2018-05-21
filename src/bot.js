@@ -87,6 +87,10 @@ Wechaty.instance()
 			message.say('哪个国家我没去过')
 		}
 
+		if (/水至清则无鱼/.test(content)) {
+			message.say('人至贱则无敌')
+		}
+
 		if (room) {
 			const topic = await room.topic()
 			if (topic === 'QRB') {
