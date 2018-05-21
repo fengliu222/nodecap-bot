@@ -6,7 +6,7 @@ const R = require('ramda')
 
 const { getProjectNews } = require('../news')
 const { getLatestTweet } = require('../twitter')
-const { getTokenInfo } = require('../coin')
+const { getTokenInfo, percentageFormat } = require('../coin')
 const { delay, formatPercentage } = require('../../helper/common')
 
 moment.locale('zh-cn')
@@ -22,8 +22,6 @@ const generateReportData = async projects => {
 }
 
 const inDateRange = date => {
-	// const targetDate = moment().subtract(3, 'days')
-	// return date.isSameOrAfter(targetDate)
 	return date.isSame(moment(), 'day')
 }
 
@@ -38,8 +36,6 @@ const requestPeport = async p => {
 			const newsDate = moment(date)
 			if (inDateRange(newsDate)) {
 				p['news'] = news.content
-				p['up_counts'] = news.up_counts
-				p['down_counts'] = news.down_counts
 			}
 		}
 
@@ -98,14 +94,10 @@ const createReport = r => {
 		''}`
 	const percentage_change = `${(r.percent_change_24h &&
 		r.percent_change_7d &&
-		`涨跌幅：${formatPercentage(
+		`涨跌幅：${percentageFormat(
 			r.percent_change_24h
-		)} (24小时), ${formatPercentage(r.percent_change_7d)} (7天)\n`) ||
+		)} (24小时), ${percentageFormat(r.percent_change_7d)} (7天)\n`) ||
 		''}`
-	// const communityFeedback = `${(r.up_counts &&
-	// 	r.down_counts &&
-	// 	`情绪：${r.up_counts}👍，${r.down_counts}👎\n`) ||
-	// 	''}`
 
 	return `${title}${news}${tweet}${price}${percentage_change}`
 }

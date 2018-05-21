@@ -114,5 +114,6 @@ module.exports = {
 	getTokenInfo,
 	requestTokenList,
 	getTokenId,
-	formatTokenInfo
+	formatTokenInfo,
+	percentageFormat
 }

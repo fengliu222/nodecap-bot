@@ -8,12 +8,12 @@ const {
 	formatTokenInfo
 } = require('./handler/coin')
 
-// generateReport()
+generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery()
-const test = async () => {
-	const info = await getTokenInfo('ppt')
-	console.log(formatTokenInfo(info))
-}
+// const test = async () => {
+// 	const info = await getTokenInfo('soc')
+// 	console.log(formatTokenInfo(info))
+// }
 
-test()
+// test()
