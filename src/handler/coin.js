@@ -91,7 +91,10 @@ const formatTokenInfo = info => {
 }
 
 const percentageFormat = percentage => {
-	return `${/-/.test(percentage) ? '↓' : '↑'} ${percentage}%`
+	if (percentage) {
+		return `${/-/.test(percentage) ? '↓' : '↑'} ${percentage}%`
+	}
+	return `未收录`
 }
 
 const moneyFormat = (amount, symbol = '$') => {
@@ -101,7 +104,10 @@ const moneyFormat = (amount, symbol = '$') => {
 	if (amount > 10000) {
 		return `${symbol}${(amount / 10000).toFixed(1)}万`
 	}
-	return `${symbol}${amount}`
+	if (amount) {
+		return `${symbol}${amount}`
+	}
+	return `${symbol}未收录`
 }
 
 const handleCoinMsg = async message => {
