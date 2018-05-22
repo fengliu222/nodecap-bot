@@ -14,8 +14,8 @@ const {
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
-	const info = await chat()
-	console.log(info)
+	const info = await getTokenInfo('soc')
+	console.log(formatTokenInfo(info))
 }
 
 test()

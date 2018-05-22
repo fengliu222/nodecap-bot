@@ -72,18 +72,12 @@ const formatTokenInfo = info => {
 		R.path(['quotes', 'CNY', 'price'])(info),
 		'￥'
 	)}\n`
-	const volume_24h = `24小时交易量：${accounting.formatMoney(
+	const volume_24h = `24小时交易量：${moneyFormat(
 		R.path(['quotes', 'USD', 'volume_24h'])(info)
-	)} / ${accounting.formatMoney(
-		R.path(['quotes', 'CNY', 'volume_24h'])(info),
-		'￥'
-	)}\n`
-	const market_cap = `总市值：${accounting.formatMoney(
+	)} / ${moneyFormat(R.path(['quotes', 'CNY', 'volume_24h'])(info), '￥')}\n`
+	const market_cap = `总市值：${moneyFormat(
 		R.path(['quotes', 'USD', 'market_cap'])(info)
-	)} / ${accounting.formatMoney(
-		R.path(['quotes', 'CNY', 'market_cap'])(info),
-		'￥'
-	)}\n`
+	)} / ${moneyFormat(R.path(['quotes', 'CNY', 'market_cap'])(info), '￥')}\n`
 	const percent_change = `涨跌幅：\n${percentageFormat(
 		percent_change_1h
 	)}（1小时）\n${percentageFormat(
@@ -95,6 +89,16 @@ const formatTokenInfo = info => {
 
 const percentageFormat = percentage => {
 	return `${/-/.test(percentage) ? '↓' : '↑'} ${percentage}%`
+}
+
+const moneyFormat = (amount, symbol = '$') => {
+	if (amount > 100000000) {
+		return `${symbol}${(amount / 100000000).toFixed(2)}亿`
+	}
+	if (amount > 10000) {
+		return `${symbol}${(amount / 10000).toFixed(1)}万`
+	}
+	return `${symbol}${amount}`
 }
 
 const handleCoinMsg = async message => {
