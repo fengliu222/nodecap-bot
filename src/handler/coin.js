@@ -105,8 +105,9 @@ const handleCoinMsg = async message => {
 	const content = R.trim(message.content())
 	try {
 		const tokenInfo = await getTokenInfo(content)
-		// say it
-		message.say(formatTokenInfo(tokenInfo))
+		if (tokenInfo) {
+			return formatTokenInfo(tokenInfo)
+		}
 	} catch (error) {
 		if (error) {
 			Raven.captureException(error)

@@ -71,8 +71,13 @@ Wechaty.instance()
 				if (res) {
 					message.say(res)
 				} else {
-					const chatRes = await chat(message)
-					message.say(chatRes)
+					const coinMsg = await handleCoinMsg(message)
+					if (coinMsg) {
+						message.say(coinMsg)
+					} else {
+						const chatRes = await chat(message)
+						message.say(chatRes)
+					}
 				}
 				return
 			}
@@ -106,7 +111,10 @@ Wechaty.instance()
 			message.say('人至贱则无敌')
 		}
 
-		await handleCoinMsg(message)
+		const coinMsg = await handleCoinMsg(message)
+		if (coinMsg) {
+			message.say(coinMsg)
+		}
 	})
 	.on('logout', user => {
 		console.log(`${user} logout`)
