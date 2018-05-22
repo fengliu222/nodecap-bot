@@ -92,8 +92,10 @@ Wechaty.instance()
 					if (coinMsg) {
 						message.say(coinMsg)
 					} else {
-						const chatRes = await chat(message)
-						message.say(chatRes)
+						if (name === '杜均') {
+							const chatRes = await chat(message)
+							message.say(chatRes)
+						}
 					}
 				}
 				return
