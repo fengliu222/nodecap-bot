@@ -52,7 +52,7 @@ const googleChat = () => {
 	// You can find your project ID in your Dialogflow agent settings
 	const projectId = 'nodus-bot' //https://dialogflow.com/docs/agents#settings
 	const sessionId = 'quickstart-session-id'
-	const query = '你好'
+	const query = '今天天气怎么样'
 	const languageCode = 'zh-CN'
 
 	// Instantiate a DialogFlow client.
