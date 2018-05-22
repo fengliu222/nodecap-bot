@@ -23,7 +23,10 @@ const getTokenId = async token => {
 	try {
 		const list = await requestTokenList()
 		const capToken = R.toUpper(token)
-		const tokenObj = R.find(R.propEq('symbol', capToken))(list)
+		const lowerToken = R.toLower(token)
+		const tokenObj =
+			R.find(R.propEq('symbol', capToken))(list) ||
+			R.find(R.propEq('website_slug', lowerToken))(list)
 		if (!R.isNil(tokenObj)) {
 			return Promise.resolve(tokenObj.id)
 		}

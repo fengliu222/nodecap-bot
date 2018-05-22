@@ -83,7 +83,11 @@ const statusMapper = status => {
 
 const handleInvestmentQuery = async message => {
 	// get params
-	const q = R.trim(message.content())
+	let q = R.trim(message.content())
+
+	if (R.equals(R.toUpper(q), 'HT')) {
+		q = '火币'
+	}
 
 	let content = ''
 	let project

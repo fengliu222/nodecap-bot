@@ -64,6 +64,23 @@ Wechaty.instance()
 			return
 		}
 
+		const name = await contact.name()
+		if (name === '杜均' || name === 'BK') {
+			const res = await handleInvestmentQuery(message)
+			if (res) {
+				message.say(res)
+			} else {
+				const coinMsg = await handleCoinMsg(message)
+				if (coinMsg) {
+					message.say(coinMsg)
+				} else {
+					const chatRes = await chat(message)
+					message.say(chatRes)
+				}
+			}
+			return
+		}
+
 		if (room) {
 			const topic = await room.topic()
 			if (topic === 'Hotnode-项目查询') {
