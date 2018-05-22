@@ -100,8 +100,7 @@ const handleInvestmentQuery = async message => {
 	}
 
 	if (project && R.isNil(project.token_name)) {
-		message.say(content)
-		return
+		return content
 	}
 
 	try {
@@ -117,7 +116,7 @@ const handleInvestmentQuery = async message => {
 		}
 	}
 
-	message.say(content)
+	return content
 }
 
 module.exports = {

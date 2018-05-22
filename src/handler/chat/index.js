@@ -22,12 +22,14 @@ const requestAccessToken = async () => {
 	}
 }
 
-const chat = async () => {
+var session_id
+
+const chat = async message => {
 	// get params
-	// const content = R.trim(message.content())
+	const query = R.trim(message.content())
 	try {
 		const access_token = await requestAccessToken()
-		const data = await requestPromise({
+		const { result } = await requestPromise({
 			method: 'POST',
 			uri: 'https://aip.baidubce.com/rpc/2.0/solution/v1/unit_utterance',
 			qs: {
@@ -35,13 +37,19 @@ const chat = async () => {
 			},
 			body: {
 				scene_id: 21687,
-				query: '今天北京天气怎么样?',
-				session_id: ''
+				query,
+				session_id
 			},
 			json: true
 		})
-		console.log(data)
-	} catch (error) {}
+
+		// session_id
+		session_id = result.session_id
+		const say = R.path(['action_list', 0, 'say'])(result)
+		return Promise.resolve(say)
+	} catch (e) {
+		return Promise.reject(e)
+	}
 }
 
 module.exports = {

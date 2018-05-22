@@ -7,6 +7,7 @@ const Raven = require('raven')
 // modules
 const { handleCoinMsg } = require('./handler/coin')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
+const { chat } = require('./handler/chat')
 const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 
@@ -94,7 +95,13 @@ Wechaty.instance()
 		if (room) {
 			const topic = await room.topic()
 			if (topic === 'QRB') {
-				await handleInvestmentQuery(message)
+				const res = await handleInvestmentQuery(message)
+				if (res) {
+					message.say(res)
+				} else {
+					const chatRes = await chat(message)
+					message.say(chatRes)
+				}
 				return
 			}
 		}
