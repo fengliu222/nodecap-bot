@@ -75,7 +75,7 @@ const statusMapper = status => {
 		case 5:
 			return '待打币'
 		case 6:
-			return '已打币'
+			return '投了'
 		default:
 			return '未知'
 	}
