@@ -33,7 +33,7 @@ const getLatestTweet = async project => {
 				form: querystring.stringify({
 					q: data.text,
 					target: 'zh-CN',
-					key: 'AIzaSyBI5FkyEUfrao7dcRvFSIUSmHwRST9mUtY'
+					key: 'AIzaSyD85qBkruhjdsS37PMnyeVns9Jbtan_kGs'
 				}),
 				json: true
 			})

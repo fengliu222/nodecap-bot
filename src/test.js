@@ -1,6 +1,8 @@
 const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
+const { requestAccessToken, chat, googleChat } = require('./handler/chat')
+
 const {
 	requestTokenList,
 	getTokenId,
@@ -11,9 +13,11 @@ const {
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-const test = async () => {
-	const info = await handleInvestmentQuery('潇芳')
-	console.log(info)
-}
+// const test = async () => {
+// 	const info = await chat()
+// 	console.log(info)
+// }
 
-test()
+// test()
+
+googleChat()
