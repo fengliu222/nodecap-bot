@@ -65,7 +65,7 @@ Wechaty.instance()
 		}
 
 		const name = await contact.name()
-		if (name === '杜均' || name === 'BK') {
+		if (name === '杜均') {
 			const res = await handleInvestmentQuery(message)
 			if (res) {
 				message.say(res)
