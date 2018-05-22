@@ -64,6 +64,20 @@ Wechaty.instance()
 			return
 		}
 
+		if (room) {
+			const topic = await room.topic()
+			if (topic === 'Hotnode-项目查询') {
+				const res = await handleInvestmentQuery(message)
+				if (res) {
+					message.say(res)
+				} else {
+					const chatRes = await chat(message)
+					message.say(chatRes)
+				}
+				return
+			}
+		}
+
 		if (/你好/.test(content)) {
 			message.say('雷猴，我是币猴')
 		}
@@ -90,20 +104,6 @@ Wechaty.instance()
 
 		if (/水至清则无鱼/.test(content)) {
 			message.say('人至贱则无敌')
-		}
-
-		if (room) {
-			const topic = await room.topic()
-			if (topic === 'QRB') {
-				const res = await handleInvestmentQuery(message)
-				if (res) {
-					message.say(res)
-				} else {
-					const chatRes = await chat(message)
-					message.say(chatRes)
-				}
-				return
-			}
 		}
 
 		await handleCoinMsg(message)
