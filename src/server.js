@@ -11,4 +11,4 @@ app.get('/api/nodus-bot/:queryText', async ({ params: { queryText } }, res) => {
 	})
 })
 
-app.listen(9888)
+app.listen(9001)
