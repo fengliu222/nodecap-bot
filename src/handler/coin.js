@@ -112,7 +112,7 @@ const moneyFormat = (amount, symbol = '$') => {
 
 const handleCoinMsg = async message => {
 	const content = R.trim(
-		typeof message === 'string' ? message : message.content()
+		typeof message === 'string' ? message : message.content
 	)
 	try {
 		const tokenInfo = await getTokenInfo(content)

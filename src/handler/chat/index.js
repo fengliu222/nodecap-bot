@@ -26,7 +26,7 @@ var session_id
 
 const chat = async message => {
 	// get params
-	const query = R.trim(message.content())
+	const query = R.trim(message.content)
 	try {
 		const access_token = await requestAccessToken()
 		const { result } = await requestPromise({
