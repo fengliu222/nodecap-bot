@@ -145,45 +145,29 @@ var weeklyJob
 // 	.start()
 
 
-const bot = async message => {
-	const content = message.content
-	const topic = message.topic
-	const name = message.name
-
-	if (name === '杜均') {
-		const res = await handleInvestmentQuery(message)
+const bot = async req => {
+	const content = req.content
+	const topic = req.topic
+	const name = req.name
+	console.log('name', name);
+	if (name === '4798305839@chatroom') {
+		const text = content.split('\n')[1];
+		const res = await handleInvestmentQuery({
+			content: text
+		})
+		console.log(res);
 		if (res) {
 			return res
 		} else {
-			const coinMsg = await handleCoinMsg(message)
+			const coinMsg = await handleCoinMsg({
+				content: text
+			})
+			console.log('coinMsg', coinMsg);
 			if (coinMsg) {
 				return coinMsg
-			} else {
-				const chatRes = await chat(message)
-				return chatRes
 			}
 		}
 		return
-	}
-
-	if (topic) {
-		if (topic === 'Hotnode-项目查询') {
-			const res = await handleInvestmentQuery(message)
-			if (res) {
-				return res
-			} else {
-				const coinMsg = await handleCoinMsg(message)
-				if (coinMsg) {
-					return coinMsg
-				} else {
-					if (name === '杜均') {
-						const chatRes = await chat(message)
-						return chatRes
-					}
-				}
-			}
-			return
-		}
 	}
 
 	// if (/你好/.test(content)) {
@@ -214,7 +198,9 @@ const bot = async message => {
 	// 	message.say('人至贱则无敌')
 	// }
 
-	const coinMsg = await handleCoinMsg(message)
+	const coinMsg = await handleCoinMsg({
+		content
+	})
 	if (coinMsg) {
 		return coinMsg
 	}
