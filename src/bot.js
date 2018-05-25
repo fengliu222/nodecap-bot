@@ -144,25 +144,23 @@ var weeklyJob
 // 	})
 // 	.start()
 
-
 const bot = async req => {
 	const content = req.content
-	const topic = req.topic
+	// const topic = req.topic
 	const name = req.name
-	console.log('name', name);
+
+	console.log(name, content)
 	if (name === '4798305839@chatroom') {
-		const text = content.split('\n')[1];
+		const text = content.split('\n')[1]
 		const res = await handleInvestmentQuery({
 			content: text
 		})
-		console.log(res);
 		if (res) {
 			return res
 		} else {
 			const coinMsg = await handleCoinMsg({
 				content: text
 			})
-			console.log('coinMsg', coinMsg);
 			if (coinMsg) {
 				return coinMsg
 			}
