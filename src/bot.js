@@ -198,7 +198,7 @@ const bot = async req => {
 	// }
 
 	const coinMsg = await handleCoinMsg({
-		content
+		content: content.includes('\n') ? content.split('\n')[1] : content
 	})
 	if (coinMsg) {
 		return coinMsg
