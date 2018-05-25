@@ -146,12 +146,13 @@ var weeklyJob
 
 const bot = async req => {
 	const content = req.content
-	// const topic = req.topic
 	const name = req.name
 
 	console.log(name, content)
 	if (name === '4798305839@chatroom') {
 		const text = content.split('\n')[1]
+
+		console.log('parsed text: ', text)
 		const res = await handleInvestmentQuery({
 			content: text
 		})
