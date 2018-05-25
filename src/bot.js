@@ -149,7 +149,11 @@ const bot = async req => {
 	const name = req.name
 
 	console.log(name, content)
-	if (name === '4798305839@chatroom' || name === '6082130353@chatroom') {
+	if (
+		name === '4798305839@chatroom' ||
+		name === '6082130353@chatroom' ||
+		name === '4726346782@chatroom'
+	) {
 		const text = content.split('\n')[1]
 
 		console.log('parsed text: ', text)
