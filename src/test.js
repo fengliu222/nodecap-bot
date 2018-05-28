@@ -11,11 +11,11 @@ const {
 } = require('./handler/coin')
 
 // generateReport()
-generateWeeklyReport()
+// generateWeeklyReport()
 // handleInvestmentQuery('soc')
-// const test = async () => {
-// 	const info = await getTokenInfo('soc')
-// 	console.log(formatTokenInfo(info))
-// }
+const test = async () => {
+	const info = await getTokenInfo('nkn')
+	console.log(formatTokenInfo(info))
+}
 
-// test()
+test()

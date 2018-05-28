@@ -52,18 +52,20 @@ const requestPeport = async p => {
 				const tokenInfo = await getTokenInfo(p.token)
 				if (tokenInfo) {
 					const percent_change_7d = R.path([
-						'quotes',
-						'USD',
-						'percent_change_7d'
+						'market_data',
+						'price_change_percentage_7d'
 					])(tokenInfo)
 					// check percentage change abs
 					if (Math.abs(percent_change_7d) > 10) {
-						p['price_usd'] = R.path(['quotes', 'USD', 'price'])(tokenInfo)
-						p['price_cny'] = R.path(['quotes', 'CNY', 'price'])(tokenInfo)
+						p['price_usd'] = R.path(['market_data', 'current_price', 'usd'])(
+							tokenInfo
+						)
+						p['price_cny'] = R.path(['market_data', 'current_price', 'cny'])(
+							tokenInfo
+						)
 						p['percent_change_24h'] = R.path([
-							'quotes',
-							'USD',
-							'percent_change_24h'
+							'market_data',
+							'price_change_percentage_24h'
 						])(tokenInfo)
 						p['percent_change_7d'] = percent_change_7d
 					}
