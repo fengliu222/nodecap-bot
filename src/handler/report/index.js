@@ -103,8 +103,8 @@ const createReport = r => {
 }
 
 const generateReport = async () => {
-	const room = await Room.find({ topic: '项目动态-产品设计' })
-	if (!room) return
+	// const room = await Room.find({ topic: '项目动态-产品设计' })
+	// if (!room) return
 
 	// get project list
 	const projects = require('../../data/projects.json')
@@ -119,7 +119,8 @@ const generateReport = async () => {
 	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
 
 	// say it
-	room.say(report_text)
+	// room.say(report_text)
+	console.log(report_text)
 }
 
 module.exports = {
