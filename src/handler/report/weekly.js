@@ -1,13 +1,12 @@
 const moment = require('moment')
-const { Room } = require('wechaty')
 const accounting = require('accounting')
 const Raven = require('raven')
 const R = require('ramda')
 
 const { getProjectWeeklyNews } = require('../news')
 // const { getLatestTweet } = require('../twitter')
-const { getTokenInfo } = require('../coin')
-const { delay, formatPercentage } = require('../../helper/common')
+const { getTokenInfo, percentageFormat } = require('../coin')
+const { delay } = require('../../helper/common')
 
 moment.locale('zh-cn')
 
@@ -93,9 +92,9 @@ const createReport = r => {
 		''}`
 	const percentage_change = `${(r.percent_change_24h &&
 		r.percent_change_7d &&
-		`涨跌幅：${formatPercentage(
+		`涨跌幅：${percentageFormat(
 			r.percent_change_24h
-		)} (24小时), ${formatPercentage(r.percent_change_7d)} (7天)\n`) ||
+		)} (24小时), ${percentageFormat(r.percent_change_7d)} (7天)\n`) ||
 		''}`
 
 	return `${title}${news}${price}${percentage_change}`

@@ -1,5 +1,4 @@
 const moment = require('moment')
-const { Room } = require('wechaty')
 const accounting = require('accounting')
 const Raven = require('raven')
 const R = require('ramda')
