@@ -2,7 +2,7 @@ const moment = require('moment-business-time')
 
 const whoGivesSpeechTmr = ({ content }) => {
 	if (!/下次谁分享/.test(content)) {
-		return null
+		return
 	}
 
 	const team = ['明远', '剑锋', '博康', '朋哥', '禹涛', 'Maggie', '振阔']
