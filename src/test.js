@@ -3,6 +3,7 @@ const { generateWeeklyReport } = require('./handler/report/weekly')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
 const { requestAccessToken, chat } = require('./handler/chat')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
+const { bot } = require('./bot')
 
 const {
 	requestTokenList,
@@ -14,12 +15,12 @@ const {
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-// const test = async () => {
-// 	const info = await handleInvestmentQuery({ content: 'nkn' })
-// 	console.log(info)
-// }
+const test = async () => {
+	const info = await bot({ content: 'eth', name: '4722@chatroom' })
+	console.log(info)
+}
 
-// test()
+test()
 
-const res = whoGivesSpeechTmr({ content: '下次谁分享' })
-console.log(res)
+// const res = whoGivesSpeechTmr({ content: '下次谁分享' })
+// console.log(res)

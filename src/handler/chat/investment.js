@@ -11,7 +11,7 @@ const queryInvestmentRepo = async q => {
 				q
 			},
 			headers: {
-				Authorization: 'Bearer aopE3QZdH-PORNIQKL9DQWecOtsE2AfY'
+				Authorization: 'Bearer zyan-hdQYJ1Ed_HtopJVZguu6CzOzQrd'
 			},
 			json: true
 		})
