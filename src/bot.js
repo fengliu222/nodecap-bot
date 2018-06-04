@@ -1,7 +1,3 @@
-// dependencies
-const Schedule = require('node-schedule')
-const Raven = require('raven')
-
 // modules
 const { handleCoinMsg } = require('./handler/coin')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
@@ -9,14 +5,6 @@ const { chat } = require('./handler/chat')
 const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
-
-// Raven init
-Raven.config(
-	'https://ec41621ea39d46a2bc8cf0acab3fac43@sentry.io/1199485'
-).install()
-
-var dailyJob
-var weeklyJob
 
 const bot = async ({ content, name }) => {
 	console.log(name, content)
@@ -30,7 +18,7 @@ const bot = async ({ content, name }) => {
 		name === '4726346782@chatroom'
 	) {
 		const res = await handleInvestmentQuery({
-			content: text
+			content: text,
 		})
 		if (res) {
 			return res
@@ -40,7 +28,7 @@ const bot = async ({ content, name }) => {
 	// 分享查询逻辑
 	if (name === '4910196791@chatroom') {
 		const res = whoGivesSpeechTmr({
-			content: text
+			content: text,
 		})
 		if (res) {
 			return res
@@ -77,7 +65,7 @@ const bot = async ({ content, name }) => {
 
 	// 币价逻辑
 	const coinMsg = await handleCoinMsg({
-		content: text
+		content: text,
 	})
 	if (coinMsg) {
 		return coinMsg
@@ -85,5 +73,5 @@ const bot = async ({ content, name }) => {
 }
 
 module.exports = {
-	bot
+	bot,
 }

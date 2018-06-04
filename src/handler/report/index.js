@@ -55,20 +55,20 @@ const requestPeport = async p => {
 				if (tokenInfo) {
 					const percent_change_24h = R.path([
 						'market_data',
-						'price_change_percentage_24h'
+						'price_change_percentage_24h',
 					])(tokenInfo)
 					// check percentage change abs
 					if (Math.abs(percent_change_24h) > 10) {
 						p['price_usd'] = R.path(['market_data', 'current_price', 'usd'])(
-							tokenInfo
+							tokenInfo,
 						)
 						p['price_cny'] = R.path(['market_data', 'current_price', 'cny'])(
-							tokenInfo
+							tokenInfo,
 						)
 						p['percent_change_24h'] = percent_change_24h
 						p['percent_change_7d'] = R.path([
 							'market_data',
-							'price_change_percentage_7d'
+							'price_change_percentage_7d',
 						])(tokenInfo)
 					}
 				}
@@ -90,13 +90,13 @@ const createReport = r => {
 		r.price_cny &&
 		`现价：${accounting.formatMoney(r.price_usd)}/${accounting.formatMoney(
 			r.price_cny,
-			'￥'
+			'￥',
 		)}\n`) ||
 		''}`
 	const percentage_change = `${(r.percent_change_24h &&
 		r.percent_change_7d &&
 		`涨跌幅：${percentageFormat(
-			r.percent_change_24h
+			r.percent_change_24h,
 		)} (24小时), ${percentageFormat(r.percent_change_7d)} (7天)\n`) ||
 		''}`
 
@@ -117,13 +117,14 @@ const generateReport = async () => {
 			.filter(r => r.news || r.tweet)
 			.map(createReport)
 			.join('\n') || '今日暂无项目投后动态-_-'
-	report_text = `${moment().format('LL')}投后监测汇总：\n\n${report_text}`
 
-	// say it
-	// room.say(report_text)
-	console.log(report_text)
+	// return it
+	return {
+		text: report_text,
+		subjuct: `${moment().format('LL')}投后监测汇总`,
+	}
 }
 
 module.exports = {
-	generateReport
+	generateReport,
 }
