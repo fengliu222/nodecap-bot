@@ -3,8 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node src/bot.js",
-		"start-mon": "nodemon src/bot.js",
+		"start": "node src/server.js",
+		"start-mon": "nodemon src/server.js",
 		"test": "nodemon src/test.js"
 	},
 	"dependencies": {
