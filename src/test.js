@@ -17,9 +17,8 @@ const {
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
-	const info = await bot({ content: 'eos', name: '49das' })
-	console.log(info)
-	mail({ to: 'hbk671104@163.com', text: info })
+	const { text, subject } = await generateReport()
+	mail({ text, subject })
 }
 
 test()
