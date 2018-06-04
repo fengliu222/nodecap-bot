@@ -121,7 +121,7 @@ const generateReport = async () => {
 	// return it
 	return {
 		text: report_text,
-		subjuct: `${moment().format('LL')}投后监测汇总`,
+		subject: `${moment().format('LL')}投后监测汇总`,
 	}
 }
 

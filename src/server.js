@@ -11,7 +11,7 @@ Raven.config(
 ).install()
 
 Schedule.scheduleJob('50 20 * * *', async () => {
-	const { text, subjuct } = await generateReport()
+	const { text, subject } = await generateReport()
 	mail({ text, subject })
 })
 
