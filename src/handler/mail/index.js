@@ -28,14 +28,12 @@ const mail = (options = {}) => {
 			...defaultOptions,
 			...options,
 		},
-		function(error, response) {
+		(error, response) => {
 			if (error) {
 				console.log(error)
 			} else {
 				console.log('Message sent: ' + response.message)
 			}
-
-			smtpTransport.close()
 		},
 	)
 }
