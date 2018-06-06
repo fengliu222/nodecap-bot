@@ -12,6 +12,8 @@ const privilegeList = [
 	'4726346782@chatroom',
 	'wxid_v6615c0nvmci41', // 玉梅姐
 	'randyking123', // 明远
+	'wxid_wktnw3oay78b11', // Yutao
+	'a39851352', // 我
 ]
 
 const bot = async ({ content, name }) => {
