@@ -14,6 +14,7 @@ const privilegeList = [
 	'randyking123', // 明远
 	'wxid_wktnw3oay78b11', // Yutao
 	'a39851352', // 我
+	'majianjun', // 马总
 ]
 
 const bot = async ({ content, name }) => {
