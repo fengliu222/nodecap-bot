@@ -6,17 +6,21 @@ const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
 
+const privilegeList = [
+	'4798305839@chatroom',
+	'6082130353@chatroom',
+	'4726346782@chatroom',
+	'wxid_v6615c0nvmci41', // 玉梅姐
+	'randyking123', // 明远
+]
+
 const bot = async ({ content, name }) => {
 	console.log(name, content)
 
 	const text = content.includes('\n') ? content.split('\n')[1] : content
 
 	// 特殊群逻辑
-	if (
-		name === '4798305839@chatroom' ||
-		name === '6082130353@chatroom' ||
-		name === '4726346782@chatroom'
-	) {
+	if (privilegeList.includes(name)) {
 		const res = await handleInvestmentQuery({
 			content: text,
 		})
