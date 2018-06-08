@@ -5,6 +5,7 @@ const { requestAccessToken, chat } = require('./handler/chat')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
 const { bot } = require('./bot')
 const { mail } = require('./handler/mail')
+const { login } = require('./handler/auth')
 
 const {
 	requestTokenList,
@@ -17,8 +18,8 @@ const {
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
-	const { text, subject } = await generateReport()
-	mail({ text, subject })
+	const data = await login()
+	console.log(data)
 }
 
 test()
