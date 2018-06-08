@@ -2,18 +2,24 @@ const requestPromise = require('request-promise')
 const R = require('ramda')
 const Raven = require('raven')
 const { getTokenInfo, formatTokenInfo } = require('../coin')
+const { login } = require('../auth')
 
 const queryInvestmentRepo = async q => {
+	if (R.isNil(global.accessToken)) {
+		const accessToken = await login()
+		global.accessToken = accessToken
+	}
 	try {
 		const data = await requestPromise({
 			uri: 'http://47.100.101.130/v1/projects',
 			qs: {
-				q
+				q,
 			},
 			headers: {
-				Authorization: 'Bearer zyan-hdQYJ1Ed_HtopJVZguu6CzOzQrd'
+				Authorization: `Bearer ${global.accessToken}`,
+				'X-Company-ID': 1,
 			},
-			json: true
+			json: true,
 		})
 
 		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
@@ -37,7 +43,7 @@ const formatRes = ({
 	review,
 	region,
 	own_ratio,
-	status_comment
+	status_comment,
 }) => {
 	const project_name = `${name}${(token_name && ` (${token_name}) `) ||
 		''}：\n\n`
@@ -124,5 +130,5 @@ const handleInvestmentQuery = async message => {
 }
 
 module.exports = {
-	handleInvestmentQuery
+	handleInvestmentQuery,
 }

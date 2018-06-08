@@ -18,7 +18,7 @@ const {
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
-	const data = await login()
+	const data = await handleInvestmentQuery({ content: 'soc' })
 	console.log(data)
 }
 
