@@ -5,20 +5,19 @@ const whoGivesSpeechTmr = ({ content }) => {
 		return
 	}
 
-	const team = ['明远', '剑锋', '博康', '朋哥', '禹涛', 'Maggie', '振阔']
+	const team = ['禹涛', 'Maggie', '振阔', '明远', '剑锋', '博康', '朋哥']
 	const now = moment()
-	const start = moment('06/04/2018', 'MM/DD/YYYY')
+	const start = moment('06/13/2018', 'MM/DD/YYYY')
 	if (now.isBefore(start)) {
 		return team[0]
 	}
-	let diff = now.workingDiff(start, 'days')
-
+	let diff = now.workingDiff(start, 'days') + 1
 	const modulo = () => {
 		const modulo = diff % team.length
-		if (modulo === team.length - 1) {
+		if (modulo === team.length) {
 			return 0
 		}
-		return modulo + 1
+		return modulo
 	}
 
 	let mod = modulo()
@@ -27,5 +26,5 @@ const whoGivesSpeechTmr = ({ content }) => {
 }
 
 module.exports = {
-	whoGivesSpeechTmr
+	whoGivesSpeechTmr,
 }

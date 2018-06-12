@@ -17,12 +17,13 @@ const {
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-const test = async () => {
-	const data = await handleInvestmentQuery({ content: 'soc' })
-	console.log(data)
-}
+// const test = async () => {
+// 	const { text, subject } = await generateWeeklyReport()
+// 	console.log(subject)
+// 	console.log(text)
+// }
 
-test()
+// test()
 
-// const res = whoGivesSpeechTmr({ content: '下次谁分享' })
-// console.log(res)
+const res = whoGivesSpeechTmr({ content: '下次谁分享' })
+console.log(res)
