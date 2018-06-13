@@ -17,8 +17,7 @@ Schedule.scheduleJob('50 20 * * *', async () => {
 })
 
 Schedule.scheduleJob('0 0 * * *', async () => {
-	const accessToken = await login()
-	global.accessToken = accessToken
+	await login()
 })
 
 app.get('/api/nodus-bot', async (req, res) => {

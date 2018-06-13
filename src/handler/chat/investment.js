@@ -4,10 +4,9 @@ const Raven = require('raven')
 const { getTokenInfo, formatTokenInfo } = require('../coin')
 const { login } = require('../auth')
 
-const queryInvestmentRepo = async q => {
-	if (R.isNil(global.accessToken)) {
-		const accessToken = await login()
-		global.accessToken = accessToken
+const queryInvestmentRepo = async ({ q, token, company }) => {
+	if (R.isNil(global.accessToken) || R.isNil(global.companyId)) {
+		await login()
 	}
 	try {
 		const data = await requestPromise({
@@ -16,8 +15,8 @@ const queryInvestmentRepo = async q => {
 				q,
 			},
 			headers: {
-				Authorization: `Bearer ${global.accessToken}`,
-				'X-Company-ID': 1,
+				Authorization: `Bearer ${token || global.accessToken}`,
+				'X-Company-ID': company || global.companyId,
 			},
 			json: true,
 		})
@@ -87,21 +86,21 @@ const statusMapper = status => {
 	}
 }
 
-const handleInvestmentQuery = async message => {
+const handleInvestmentQuery = async ({ content, token, company }) => {
 	// get params
-	let q = R.trim(message.content)
+	let q = R.trim(content)
 
 	if (R.equals(R.toUpper(q), 'HT')) {
 		q = '火币'
 	}
 
-	let content = ''
+	let reply = ''
 	let project
 	try {
 		// project info
-		project = await queryInvestmentRepo(q)
+		project = await queryInvestmentRepo({ q, token, company })
 		if (!R.isNil(project)) {
-			content = formatRes(project)
+			reply = formatRes(project)
 		}
 	} catch (e) {
 		if (e) {
@@ -110,7 +109,7 @@ const handleInvestmentQuery = async message => {
 	}
 
 	if (project && R.isNil(project.token_name)) {
-		return content
+		return reply
 	}
 
 	try {
@@ -118,7 +117,7 @@ const handleInvestmentQuery = async message => {
 		const token = await getTokenInfo(project.token_name)
 		if (!R.isNil(token)) {
 			const tokenInfo = formatTokenInfo(token)
-			content = `${content}\n${tokenInfo}`
+			reply = `${reply}\n${tokenInfo}`
 		}
 	} catch (e) {
 		if (e) {
@@ -126,7 +125,7 @@ const handleInvestmentQuery = async message => {
 		}
 	}
 
-	return content
+	return reply
 }
 
 module.exports = {

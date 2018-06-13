@@ -22,6 +22,18 @@ const bot = async ({ content, name }) => {
 
 	const text = content.includes('\n') ? content.split('\n')[1] : content
 
+	if (name === 'qq49539772') {
+		// 拓拓
+		const res = await handleInvestmentQuery({
+			content: text,
+			token: 'UL-oJBk_nksaeEacMSQVgeM-KNt4JQHf', // 郭杰的token,
+			company: 2,
+		})
+		if (res) {
+			return res
+		}
+	}
+
 	// 特殊群逻辑
 	if (privilegeList.includes(name)) {
 		const res = await handleInvestmentQuery({

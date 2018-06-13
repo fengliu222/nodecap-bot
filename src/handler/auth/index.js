@@ -13,7 +13,9 @@ const login = async () => {
 			json: true,
 		})
 		if (R.and(!R.isNil(data), !R.isEmpty(data))) {
-			return Promise.resolve(data.access_token)
+			global.accessToken = data.access_token
+			global.companyId = R.path(['id'])(data.companies[0])
+			return Promise.resolve(data)
 		}
 		return Promise.reject(data)
 	} catch (error) {
