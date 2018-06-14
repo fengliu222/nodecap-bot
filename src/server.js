@@ -20,12 +20,17 @@ Schedule.scheduleJob('0 0 * * *', async () => {
 	await login()
 })
 
+const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min
+
 app.get('/api/nodus-bot', async (req, res) => {
 	const params = req.query
 	const data = await bot(params)
-	res.json({
-		data: data || 'empty_message',
-	})
+
+	setTimeout(() => {
+		res.json({
+			data: data || 'empty_message',
+		})
+	}, getRandomArbitrary(0, 3000))
 })
 
 app.listen(9001)
