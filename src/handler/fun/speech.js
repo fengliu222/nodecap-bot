@@ -5,9 +5,9 @@ const whoGivesSpeechTmr = ({ content }) => {
 		return
 	}
 
-	const team = ['禹涛', 'Maggie', '振阔', '明远', '剑锋', '博康', '朋哥']
+	const team = ['剑锋', '明远', '博康', '朋哥', '禹涛', 'Maggie', '振阔']
 	const now = moment()
-	const start = moment('06/13/2018', 'MM/DD/YYYY')
+	const start = moment('06/19/2018', 'MM/DD/YYYY')
 	if (now.isBefore(start)) {
 		return team[0]
 	}
