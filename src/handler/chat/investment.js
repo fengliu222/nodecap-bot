@@ -32,6 +32,7 @@ const queryInvestmentRepo = async ({ q, token, company }) => {
 
 const formatRes = ({
 	status,
+	tags,
 	name,
 	description,
 	source,
@@ -49,6 +50,11 @@ const formatRes = ({
 	const project_desc = `${(description && `${description}\n\n`) || ''}`
 	const project_status = `${(status && `状态：${statusMapper(status)}\n`) ||
 		''}`
+	const project_tags = `${(tags &&
+		tags.length > 0 &&
+		`标签：${tags.map(t => t.name).join('、')}\n`) ||
+		''}`
+	const project_source = `${(source && `来源：${source}\n`) || ''}`
 	const project_status_comment = `${(status_comment &&
 		`状态备注：${status_comment}\n`) ||
 		''}`
@@ -62,7 +68,7 @@ const formatRes = ({
 	const project_site = `${(site_url && `官网：${site_url}\n`) || ''}`
 	const project_review = `${(review && `推荐语：${review}\n`) || ''}`
 
-	return `${project_name}${project_desc}${project_status}${project_status_comment}${project_region}${project_channel}${project_watch_user}${project_own_ratio}${project_review}${project_site}`
+	return `${project_name}${project_desc}${project_status}${project_tags}${project_source}${project_status_comment}${project_region}${project_channel}${project_watch_user}${project_own_ratio}${project_review}${project_site}`
 }
 
 const statusMapper = status => {
