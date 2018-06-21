@@ -10,6 +10,7 @@ const privilegeList = [
 	'4798305839@chatroom',
 	'6082130353@chatroom',
 	'4726346782@chatroom',
+	'5087001594@chatroom',
 	'wxid_v6615c0nvmci41', // 玉梅姐
 	'randyking123', // 明远
 	'wxid_wktnw3oay78b11', // Yutao
