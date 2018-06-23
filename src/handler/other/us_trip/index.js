@@ -8,7 +8,11 @@ const formatOutput = item => {
 }
 
 const formatList = list => {
-	return list.map(i => formatOutput(i)).join('\n')
+	const l = list.map(i => formatOutput(i)).filter(i => !R.isEmpty(i))
+	if (R.isEmpty(l)) {
+		return
+	}
+	return l.join('\n')
 }
 
 const unionInvitation = (keys = R.keys(invitation)) => {
