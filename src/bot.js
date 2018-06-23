@@ -26,7 +26,7 @@ const bot = async ({ content, name }) => {
 	const text = content.includes('\n') ? content.split('\n')[1] : content
 
 	// US Trip 查询
-	if (name === 'chenyulinghbu') {
+	if (name === 'chenyulinghbu' || name === 'a39851352') {
 		const res = query(text)
 		if (res) {
 			return res
