@@ -32,14 +32,16 @@ const intersectInvitation = (keys = R.keys(invitation)) => {
 }
 
 const query = text => {
+	let response
+
 	if (text === 'all') {
-		return formatList(unionInvitation())
+		response = formatList(unionInvitation())
 	}
 
 	// basic
 	const invitee = invitation[text]
 	if (!R.isNil(invitee)) {
-		return formatList(invitee)
+		response = formatList(invitee)
 	}
 
 	// combine
@@ -51,7 +53,7 @@ const query = text => {
 			R.keys(invitation).length,
 		)
 	) {
-		return formatList(unionInvitation(inviters))
+		response = formatList(unionInvitation(inviters))
 	}
 
 	// interest
@@ -63,7 +65,11 @@ const query = text => {
 			R.keys(invitation).length,
 		)
 	) {
-		return formatList(intersectInvitation(inviterData))
+		response = formatList(intersectInvitation(inviterData))
+	}
+
+	if (response) {
+		return `美国活动邀请名单查询（niuniu_dreammaker 专享）：\n\n${response}`
 	}
 
 	return
