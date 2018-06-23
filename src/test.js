@@ -28,5 +28,5 @@ const {
 // const res = whoGivesSpeechTmr({ content: '下次谁分享' })
 // console.log(res)
 
-const res = invitationQuery('张欢、玉玲')
+const res = invitationQuery('潇芳，张欢')
 console.log(res)
