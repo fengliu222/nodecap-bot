@@ -6,6 +6,7 @@ const { whoGivesSpeechTmr } = require('./handler/fun/speech')
 const { bot } = require('./bot')
 const { mail } = require('./handler/mail')
 const { login } = require('./handler/auth')
+const { query: invitationQuery } = require('./handler/other/us_trip')
 
 const {
 	requestTokenList,
@@ -17,12 +18,15 @@ const {
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-const test = async () => {
-	const res = await handleInvestmentQuery({ content: 'ION' })
-	console.log(res)
-}
+// const test = async () => {
+// 	const res = await handleInvestmentQuery({ content: 'ION' })
+// 	console.log(res)
+// }
 
-test()
+// test()
 
 // const res = whoGivesSpeechTmr({ content: '下次谁分享' })
 // console.log(res)
+
+const res = invitationQuery('张欢、玉玲')
+console.log(res)

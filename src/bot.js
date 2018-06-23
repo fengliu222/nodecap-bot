@@ -5,6 +5,7 @@ const { chat } = require('./handler/chat')
 const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
+const { query } = require('./handler/other/us_trip')
 
 const privilegeList = [
 	'4798305839@chatroom',
@@ -23,6 +24,14 @@ const bot = async ({ content, name }) => {
 	console.log(name, content)
 
 	const text = content.includes('\n') ? content.split('\n')[1] : content
+
+	// US Trip 查询
+	if (name === 'chenyulinghbu') {
+		const res = query(text)
+		if (res) {
+			return res
+		}
+	}
 
 	if (name === 'qq49539772') {
 		// 拓拓
