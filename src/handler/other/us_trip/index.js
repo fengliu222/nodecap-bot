@@ -69,7 +69,7 @@ const query = text => {
 	}
 
 	if (response) {
-		return `美国活动邀请名单查询：\n\n${response}\n（此功能属 niuniu_dreammaker 独享）`
+		return `美国活动邀请名单查询：\n\n${response}\n\n（此功能属 niuniu_dreammaker 独享）`
 	}
 
 	return
