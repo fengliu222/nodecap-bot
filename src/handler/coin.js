@@ -83,11 +83,6 @@ const formatTokenInfo = info => {
 		R.path(['market_data', 'market_cap', 'cny'])(info),
 		'￥',
 	)}\n`
-	// const percent_change = `涨跌幅：\n${percentageFormat(
-	// 	percent_change_1h
-	// )}（1小时）\n${percentageFormat(
-	// 	percent_change_24h
-	// )}（1天）\n${percentageFormat(percent_change_7d)}（7天）`
 
 	const percent_change = `涨跌幅：\n${percentageFormat(
 		percent_change_24h,
@@ -120,6 +115,70 @@ const formatTokenInfo = info => {
 	return `${token}${market_data}${community_data}${developer_data}`
 }
 
+const formatTokenInfoEnglish = info => {
+	// pre-handling
+	// const percent_change_1h = R.path(['quotes', 'USD', 'percent_change_1h'])(info)
+	const percent_change_24h = R.path([
+		'market_data',
+		'price_change_percentage_24h',
+	])(info)
+	const percent_change_7d = R.path([
+		'market_data',
+		'price_change_percentage_7d',
+	])(info)
+
+	// fields
+	const token = `${R.toUpper(R.path(['symbol'])(info))} (${R.path(['name'])(
+		info,
+	)}) \n\n`
+	const price = `Current Price: ${accounting.formatMoney(
+		R.path(['market_data', 'current_price', 'usd'])(info),
+	)} / ${accounting.formatMoney(
+		R.path(['market_data', 'current_price', 'cny'])(info),
+		'￥',
+	)}\n`
+	const volume_24h = `24h Volume: ${moneyFormatEnglish(
+		R.path(['market_data', 'volume_change_24h'])(info),
+		'',
+	)} ${R.path(['symbol'])(info)}\n`
+	const market_cap = `Market Cap: ${moneyFormatEnglish(
+		R.path(['market_data', 'market_cap', 'usd'])(info),
+	)} / ${moneyFormatEnglish(
+		R.path(['market_data', 'market_cap', 'cny'])(info),
+		'￥',
+	)}\n`
+
+	const percent_change = `Price Change:\n${percentageFormat(
+		percent_change_24h,
+	)} (24h)\n${percentageFormat(percent_change_7d)} (7d)\n`
+
+	const market_data = `Market Data\n${price}${market_cap}${percent_change}`
+
+	const community_data = `\nCommunity Activeness\nFacebook likes: ${R.pathOr(
+		'暂无',
+		['community_data', 'facebook_likes'],
+	)(info)}\nTwitter followers: ${R.pathOr('暂无', [
+		'community_data',
+		'twitter_followers',
+	])(info)}\n`
+
+	const developer_data = `\nDevelopment Activeness\nForks: ${R.pathOr('暂无', [
+		'developer_data',
+		'forks',
+	])(info)}\nStars: ${R.pathOr('暂无', ['developer_data', 'stars'])(
+		info,
+	)}\nPR merged: ${R.pathOr('暂无', ['developer_data', 'pull_requests_merged'])(
+		info,
+	)}\nPR contributors: ${R.pathOr('暂无', [
+		'developer_data',
+		'pull_request_contributors',
+	])(info)}\nCommit count in 4 weeks: ${R.pathOr('暂无', [
+		'developer_data',
+		'commit_count_4_weeks',
+	])(info)}\n`
+	return `${token}${market_data}${community_data}${developer_data}`
+}
+
 const percentageFormat = percentage => {
 	if (percentage) {
 		percentage = Number(percentage).toFixed(2)
@@ -141,13 +200,33 @@ const moneyFormat = (amount, symbol = '$') => {
 	return `${symbol}未收录`
 }
 
+const moneyFormatEnglish = (amount, symbol = '$') => {
+	if (amount > 1000000000) {
+		return `${symbol}${(amount / 1000000000).toFixed(2)} Billion`
+	}
+	if (amount > 1000000) {
+		return `${symbol}${(amount / 1000000).toFixed(1)} Million`
+	}
+	if (amount > 1000) {
+		return `${symbol}${(amount / 1000).toFixed(1)} Thousand`
+	}
+	if (amount) {
+		return `${symbol}${amount}`
+	}
+	return `${symbol} not recorded`
+}
+
 const handleCoinMsg = async message => {
 	const content = R.trim(
 		typeof message === 'string' ? message : message.content,
 	)
+	const inEnglish = message.inEnglish
 	try {
 		const tokenInfo = await getTokenInfo(content)
 		if (tokenInfo) {
+			if (inEnglish) {
+				return formatTokenInfoEnglish(tokenInfo)
+			}
 			return formatTokenInfo(tokenInfo)
 		}
 	} catch (error) {

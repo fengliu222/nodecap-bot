@@ -13,20 +13,21 @@ const {
 	getTokenId,
 	getTokenInfo,
 	formatTokenInfo,
+	handleCoinMsg,
 } = require('./handler/coin')
 
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-// const test = async () => {
-// 	const res = await handleInvestmentQuery({ content: 'ION' })
-// 	console.log(res)
-// }
+const test = async () => {
+	const res = await handleCoinMsg({ content: 'nkn', inEnglish: true })
+	console.log(res)
+}
 
-// test()
+test()
 
 // const res = whoGivesSpeechTmr({ content: '下次谁分享' })
 // console.log(res)
 
-const res = invitationQuery('潇芳，bk')
-console.log(res)
+// const res = invitationQuery('潇芳，bk')
+// console.log(res)
