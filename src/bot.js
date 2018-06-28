@@ -96,7 +96,7 @@ const bot = async ({ content, name }) => {
 	// 币价逻辑
 	const coinMsg = await handleCoinMsg({
 		content: text,
-		inEnglish: true,
+		inEnglish: name === 'a39851352',
 	})
 	if (coinMsg) {
 		return coinMsg
