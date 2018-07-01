@@ -77,10 +77,6 @@ babel-runtime@^6.22.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.11.0"
 
-balanced-match@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
-
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -105,13 +101,6 @@ body-parser@1.18.2:
     qs "6.5.1"
     raw-body "2.3.2"
     type-is "~1.6.15"
-
-brace-expansion@^1.1.7:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
-  dependencies:
-    balanced-match "^1.0.0"
-    concat-map "0.0.1"
 
 bytes@3.0.0:
   version "3.0.0"
@@ -175,9 +164,11 @@ combined-stream@1.0.6, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-concat-map@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
+contained-periodic-values@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/contained-periodic-values/-/contained-periodic-values-1.0.0.tgz#a81dd8e84e0a5513d590a1e6581bfe55c00f9c4d"
+  dependencies:
+    nearest-periodic-value "^1.0.0"
 
 content-disposition@0.5.2:
   version "0.5.2"
@@ -582,22 +573,16 @@ mimic-fn@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
 
-minimatch@^3.0.3:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
-  dependencies:
-    brace-expansion "^1.1.7"
-
 minimist@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-moment-business-time@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/moment-business-time/-/moment-business-time-0.7.1.tgz#7be7c6f65135824caed5f8adb6aa93428442edfd"
+moment-business@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/moment-business/-/moment-business-3.0.1.tgz#df0de1a8a074060652b5688d3cc99c9d8b76dcc4"
   dependencies:
-    minimatch "^3.0.3"
-    moment "^2.14.1"
+    contained-periodic-values "^1.0.0"
+    skipped-periodic-values "^1.0.0"
 
 moment-timezone@^0.5.0:
   version "0.5.16"
@@ -605,7 +590,7 @@ moment-timezone@^0.5.0:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.14.1:
+"moment@>= 2.9.0":
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
@@ -616,6 +601,10 @@ ms@2.0.0:
 mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
+
+nearest-periodic-value@^1.0.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/nearest-periodic-value/-/nearest-periodic-value-1.2.0.tgz#a84fd52919a89692864d20a41468313d255905c6"
 
 negotiator@0.6.1:
   version "0.6.1"
@@ -868,6 +857,12 @@ setprototypeof@1.1.0:
 signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+skipped-periodic-values@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/skipped-periodic-values/-/skipped-periodic-values-1.0.1.tgz#d3a0a4d93ac134c4550db2a8823ed9d9739ceca2"
+  dependencies:
+    nearest-periodic-value "^1.0.0"
 
 sorted-array-functions@^1.0.0:
   version "1.1.0"
