@@ -11,18 +11,17 @@ const { delay } = require('../../helper/common')
 moment.locale('zh-cn')
 
 const generateReportData = async projects => {
-	// const room = await Room.find({ topic: '项目动态-产品设计' })
-	// if (!room) return
-
-	console.log(`${moment().year()}年第${moment().week()}周投后周报：\n\n`)
+	let reportData = ''
 	for (const item of projects) {
 		const data = await requestPeport(item)
 		if (data.news) {
 			const text = createReport(data)
 			// room.say(text)
 			console.log(text)
+			reportData = `${reportData}\n\n${text}`
 		}
 	}
+	return reportData
 }
 
 const requestPeport = async p => {
@@ -52,19 +51,19 @@ const requestPeport = async p => {
 				if (tokenInfo) {
 					const percent_change_7d = R.path([
 						'market_data',
-						'price_change_percentage_7d'
+						'price_change_percentage_7d',
 					])(tokenInfo)
 					// check percentage change abs
 					if (Math.abs(percent_change_7d) > 10) {
 						p['price_usd'] = R.path(['market_data', 'current_price', 'usd'])(
-							tokenInfo
+							tokenInfo,
 						)
 						p['price_cny'] = R.path(['market_data', 'current_price', 'cny'])(
-							tokenInfo
+							tokenInfo,
 						)
 						p['percent_change_24h'] = R.path([
 							'market_data',
-							'price_change_percentage_24h'
+							'price_change_percentage_24h',
 						])(tokenInfo)
 						p['percent_change_7d'] = percent_change_7d
 					}
@@ -87,25 +86,33 @@ const createReport = r => {
 		r.price_cny &&
 		`现价：${accounting.formatMoney(r.price_usd)}/${accounting.formatMoney(
 			r.price_cny,
-			'￥'
+			'￥',
 		)}\n`) ||
 		''}`
 	const percentage_change = `${(r.percent_change_24h &&
 		r.percent_change_7d &&
 		`涨跌幅：${percentageFormat(
-			r.percent_change_24h
+			r.percent_change_24h,
 		)} (24小时), ${percentageFormat(r.percent_change_7d)} (7天)\n`) ||
 		''}`
 
 	return `${title}${news}${price}${percentage_change}`
 }
 
-const generateWeeklyReport = () => {
+const generateWeeklyReport = async () => {
 	// get project list
 	const projects = require('../../data/projects.json')
-	generateReportData(projects)
+	const report = await generateReportData(projects)
+
+	const now = moment()
+	const year = now.year()
+	const week = now.week()
+	return {
+		text: report,
+		subject: `${year}年第${week}周投后周报`,
+	}
 }
 
 module.exports = {
-	generateWeeklyReport
+	generateWeeklyReport,
 }

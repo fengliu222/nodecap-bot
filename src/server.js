@@ -5,6 +5,7 @@ const app = require('express')()
 const { bot } = require('./bot')
 const { mail } = require('./handler/mail')
 const { generateReport } = require('./handler/report')
+const { generateWeeklyReport } = require('./handler/weekly')
 const { login } = require('./handler/auth')
 
 Raven.config(
@@ -13,6 +14,11 @@ Raven.config(
 
 Schedule.scheduleJob('50 20 * * *', async () => {
 	const { text, subject } = await generateReport()
+	mail({ text, subject })
+})
+
+Schedule.scheduleJob('20 21 * * 7', async () => {
+	const { text, subject } = await generateWeeklyReport()
 	mail({ text, subject })
 })
 
