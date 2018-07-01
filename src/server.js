@@ -5,7 +5,7 @@ const app = require('express')()
 const { bot } = require('./bot')
 const { mail } = require('./handler/mail')
 const { generateReport } = require('./handler/report')
-const { generateWeeklyReport } = require('./handler/weekly')
+const { generateWeeklyReport } = require('./handler/report/weekly')
 const { login } = require('./handler/auth')
 
 Raven.config(
