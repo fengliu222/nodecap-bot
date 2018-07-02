@@ -62,7 +62,7 @@ const bot = async ({ content, name }) => {
 			content: text,
 		})
 		if (res) {
-			return '王明远'
+			return res
 		}
 	}
 
