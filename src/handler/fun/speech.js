@@ -15,20 +15,29 @@ const whoGivesSpeechTmr = ({ content }) => {
 		'禹涛',
 		'振阔',
 		'苏菲',
+		'suyao',
+		'张腾',
+		'王岩',
 	]
 	const now = moment()
 	const start = moment('07/02/2018', 'MM/DD/YYYY')
 	if (now.isBefore(start)) {
 		return team[0]
 	}
-	// let diff = now.workingDiff(start, 'days') + 1
-	const diff = business.weekDays(start, now)
+	const bDiff = business.weekDays(start, now)
+	const realDiff = now.diff(start, 'day')
 	const modulo = () => {
-		const modulo = diff % team.length
-		if (modulo === team.length) {
+		const modulo = bDiff % team.length
+		if (bDiff % 5 === 0) {
+			if (realDiff % 7 === 0) {
+				return modulo
+			}
+			return modulo - 1
+		}
+		if (modulo === team.length - 1) {
 			return 0
 		}
-		return modulo + 1
+		return modulo
 	}
 
 	return team[modulo()]
