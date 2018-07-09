@@ -57,7 +57,7 @@ const bot = async ({ content, name }) => {
 	}
 
 	// 分享查询逻辑
-	if (name === '4910196791@chatroom') {
+	if (name === '4910196791@chatroom' || name === '5764708583@chatroom') {
 		const res = whoGivesSpeechTmr({
 			content: text,
 		})
