@@ -65,8 +65,6 @@ bot
 		console.log(`Room ${room.topic()} lost member ${nameList}`)
 	})
 	.on('message', async msg => {
-		console.log(msg)
-
 		if (msg.self()) return
 
 		const room = msg.room()
