@@ -69,8 +69,8 @@ bot
 
 		console.log(qrcodeImageUrl)
 	})
-	.on('login', user => {
-		const workGroup = bot.Room.find({ topic: '节点小伙伴' })
+	.on('login', async user => {
+		const workGroup = await bot.Room.find({ topic: '节点小伙伴' })
 
 		onWork = Schedule.scheduleJob('15 09 * * *', async () => {
 			await workGroup.say('还有15分钟就要迟到啦，不要忘记打卡哦。')
