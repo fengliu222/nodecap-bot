@@ -57,6 +57,7 @@ const handleRoomJoin = async room => {
 
 let offwork
 let onWork
+let extraWork
 
 bot
 	.on('scan', (qrcode, status) => {
@@ -71,12 +72,16 @@ bot
 	.on('login', user => {
 		const workGroup = bot.Room.find({ topic: '节点小伙伴' })
 
-		offwork = Schedule.scheduleJob('30 18 * * *', async () => {
-			await workGroup.say('下班啦，不要忘记打卡哦')
+		onWork = Schedule.scheduleJob('15 09 * * *', async () => {
+			await workGroup.say('还有15分钟就要迟到啦，不要忘记打卡哦。')
 		})
 
-		onWork = Schedule.scheduleJob('15 09 * * *', async () => {
-			await workGroup.say('还有15分钟就要迟到啦，不要忘记打卡哦')
+		offwork = Schedule.scheduleJob('30 18 * * *', async () => {
+			await workGroup.say('下班啦，不要忘记打卡哦。')
+		})
+
+		extraWork = Schedule.scheduleJob('01 21 * * *', async () => {
+			await workGroup.say('要加班的同学，不要忘了提交申请哦。')
 		})
 
 		console.log(`${user} login`)
@@ -118,6 +123,7 @@ bot
 	.on('logout', user => {
 		offwork.cancel()
 		onWork.cancel()
+		extraWork.cancel()
 		console.log(`${user} logout`)
 	})
 	.start()
