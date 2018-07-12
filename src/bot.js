@@ -8,48 +8,48 @@ const { whoGivesSpeechTmr } = require('./handler/fun/speech')
 const { query } = require('./handler/other/us_trip')
 
 const privilegeList = [
-	'4798305839@chatroom',
-	'6082130353@chatroom',
-	'4726346782@chatroom',
-	// '5087001594@chatroom',
-	'wxid_v6615c0nvmci41', // 玉梅姐
-	'randyking123', // 明远
-	'wxid_wktnw3oay78b11', // Yutao
-	'a39851352', // 我
-	'majianjun', // 马总
-	'chenyulinghbu', // 玉玲姐,
-	'lvxing', // 杜总
+	// '4798305839@chatroom',
+	// '6082130353@chatroom',
+	'项目动态-产品设计',
+	'Hotnode篮球队',
+	'杨玉梅@Node Capital', // 玉梅姐
+	'王明远andy', // 明远
+	'Iridescent', // Yutao
+	'BK', // 我
+	'马建军', // 马总
+	'陈玉玲', // 玉玲姐,
+	'杜均@Node Capital', // 杜总
 ]
 
 const bot = async ({ content, name }) => {
 	console.log(name, content)
 
-	const text = content.includes('\n') ? content.split('\n')[1] : content
+	// const text = content.includes('\n') ? content.split('\n')[1] : content
 
 	// US Trip 查询
-	if (name === 'chenyulinghbu' || name === 'a39851352') {
-		const res = query(text)
-		if (res) {
-			return res
-		}
-	}
+	// if (name === 'chenyulinghbu' || name === 'a39851352') {
+	// 	const res = query(text)
+	// 	if (res) {
+	// 		return res
+	// 	}
+	// }
 
-	if (name === 'qq49539772') {
-		// 拓拓
-		const res = await handleInvestmentQuery({
-			content: text,
-			token: 'UL-oJBk_nksaeEacMSQVgeM-KNt4JQHf', // 郭杰的token,
-			company: 2,
-		})
-		if (res) {
-			return res
-		}
-	}
+	// if (name === 'qq49539772') {
+	// 	// 拓拓
+	// 	const res = await handleInvestmentQuery({
+	// 		content,
+	// 		token: 'UL-oJBk_nksaeEacMSQVgeM-KNt4JQHf', // 郭杰的token,
+	// 		company: 2,
+	// 	})
+	// 	if (res) {
+	// 		return res
+	// 	}
+	// }
 
 	// 特殊群逻辑
-	if (privilegeList.includes(name)) {
+	if (privilegeList.find(p => p.includes(name))) {
 		const res = await handleInvestmentQuery({
-			content: text,
+			content,
 		})
 		if (res) {
 			return res
@@ -57,9 +57,9 @@ const bot = async ({ content, name }) => {
 	}
 
 	// 分享查询逻辑
-	if (name === '4910196791@chatroom' || name === '5764708583@chatroom') {
+	if (/Hotnode篮球队/.test(name)) {
 		const res = whoGivesSpeechTmr({
-			content: text,
+			content,
 		})
 		if (res) {
 			return res
@@ -68,8 +68,7 @@ const bot = async ({ content, name }) => {
 
 	// 币价逻辑
 	const coinMsg = await handleCoinMsg({
-		content: text,
-		inEnglish: name === '12473034963@chatroom',
+		content,
 	})
 	if (coinMsg) {
 		return coinMsg
