@@ -66,34 +66,6 @@ const bot = async ({ content, name }) => {
 		}
 	}
 
-	// if (/你好/.test(content)) {
-	// 	message.say('雷猴，我是币猴')
-	// }
-
-	// if (/图样|图森破/.test(content)) {
-	// 	message.say('Sometimes Naïve')
-	// }
-
-	// if (/华莱士/.test(content)) {
-	// 	message.say('不知道高到哪里去了')
-	// }
-
-	// if (/苟利国家生死以/.test(content)) {
-	// 	message.say('岂因祸福避趋之')
-	// }
-
-	// if (/香港记者/.test(content)) {
-	// 	message.say('跑得快')
-	// }
-
-	// if (/西方/.test(content)) {
-	// 	message.say('哪个国家我没去过')
-	// }
-
-	// if (/水至清则无鱼/.test(content)) {
-	// 	message.say('人至贱则无敌')
-	// }
-
 	// 币价逻辑
 	const coinMsg = await handleCoinMsg({
 		content: text,
