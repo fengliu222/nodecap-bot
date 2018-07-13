@@ -18,7 +18,8 @@
 		"raven": "^2.6.3",
 		"request": "^2.87.0",
 		"request-promise": "^4.2.2",
-		"wechaty": "^0.18.3"
+		"wechaty": "^0.19.8",
+		"wechaty-puppet-padchat": "^0.8.2"
 	},
 	"devDependencies": {}
 }

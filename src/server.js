@@ -2,6 +2,7 @@ const Schedule = require('node-schedule')
 const Raven = require('raven')
 const qrTerm = require('qrcode-terminal')
 const { Wechaty, Friendship } = require('wechaty')
+const { PuppetPadchat } = require('wechaty-puppet-padchat')
 const { FileBox } = require('file-box')
 const R = require('ramda')
 
@@ -11,7 +12,10 @@ const { generateReport } = require('./handler/report')
 const { generateWeeklyReport } = require('./handler/report/weekly')
 const { login } = require('./handler/auth')
 
-const bot = new Wechaty()
+const puppet = new PuppetPadchat({
+	token: 'padchat-token-bokang264229',
+})
+const bot = new Wechaty({ puppet })
 
 Raven.config(
 	'https://ec41621ea39d46a2bc8cf0acab3fac43@sentry.io/1199485',
