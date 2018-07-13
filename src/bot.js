@@ -47,7 +47,7 @@ const bot = async ({ content, name }) => {
 	// }
 
 	// 特殊群逻辑
-	if (privilegeList.find(p => p.includes(name))) {
+	if (privilegeList.find(p => name.includes(p))) {
 		const res = await handleInvestmentQuery({
 			content,
 		})
