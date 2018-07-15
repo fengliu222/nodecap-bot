@@ -106,7 +106,7 @@ bot
 		let name
 		if (room) {
 			name = await room.topic()
-			name = `${contact.name()}：${name}`
+			name = `${name}：${contact.name()}`
 		} else {
 			name = contact.name()
 		}

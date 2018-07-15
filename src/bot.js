@@ -46,6 +46,10 @@ const bot = async ({ content, name }) => {
 	// 	}
 	// }
 
+	if (/OK|ok|Ok|oK/.test(content)) {
+		return
+	}
+
 	// 特殊群逻辑
 	if (privilegeList.find(p => name.includes(p))) {
 		const res = await handleInvestmentQuery({
