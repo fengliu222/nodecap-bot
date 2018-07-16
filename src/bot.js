@@ -1,84 +1,67 @@
-// modules
-const { handleCoinMsg } = require('./handler/coin')
-const { handleInvestmentQuery } = require('./handler/chat/investment')
-const { chat } = require('./handler/chat')
-const { generateReport } = require('./handler/report')
-const { generateWeeklyReport } = require('./handler/report/weekly')
-const { whoGivesSpeechTmr } = require('./handler/fun/speech')
-const { query } = require('./handler/other/us_trip')
+const qrTerm = require('qrcode-terminal')
+const { Wechaty, Friendship } = require('wechaty')
+const { FileBox } = require('file-box')
+const R = require('ramda')
 
-const privilegeList = [
-	// '4798305839@chatroom',
-	// '6082130353@chatroom',
-	'项目动态-产品设计',
-	'Hotnode篮球队',
-	'杨玉梅@Node Capital', // 玉梅姐
-	'王明远andy', // 明远
-	'Iridescent', // Yutao
-	'BK', // 我
-	'马建军', // 马总
-	'陈玉玲', // 玉玲姐,
-	'杜均@Node Capital', // 杜总
-]
+const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min
 
-const bot = async ({ content, name }) => {
-	console.log(name, content)
+let forwardingMode = false
 
-	// const text = content.includes('\n') ? content.split('\n')[1] : content
+const bot = new Wechaty()
 
-	// US Trip 查询
-	// if (name === 'chenyulinghbu' || name === 'a39851352') {
-	// 	const res = query(text)
-	// 	if (res) {
-	// 		return res
-	// 	}
-	// }
+bot
+	.on('scan', (qrcode, status) => {
+		qrTerm.generate(qrcode, { small: true }) // show qrcode on console
 
-	// if (name === 'qq49539772') {
-	// 	// 拓拓
-	// 	const res = await handleInvestmentQuery({
-	// 		content,
-	// 		token: 'UL-oJBk_nksaeEacMSQVgeM-KNt4JQHf', // 郭杰的token,
-	// 		company: 2,
-	// 	})
-	// 	if (res) {
-	// 		return res
-	// 	}
-	// }
+		const qrcodeImageUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+			qrcode,
+		)}&size=220x220&margin=20`
 
-	if (/OK|ok|Ok|oK/.test(content)) {
-		return
-	}
-
-	// 特殊群逻辑
-	if (privilegeList.find(p => name.includes(p))) {
-		const res = await handleInvestmentQuery({
-			content,
-		})
-		if (res) {
-			return res
-		}
-	}
-
-	// 分享查询逻辑
-	if (/Hotnode篮球队/.test(name)) {
-		const res = whoGivesSpeechTmr({
-			content,
-		})
-		if (res) {
-			return res
-		}
-	}
-
-	// 币价逻辑
-	const coinMsg = await handleCoinMsg({
-		content,
+		console.log(qrcodeImageUrl)
 	})
-	if (coinMsg) {
-		return coinMsg
-	}
-}
+	.on('login', async user => {
+		console.log(`${user} login`)
+	})
+	.on('message', async msg => {
+		const room = msg.room()
+		const contact = msg.from()
+		const destination = msg.to()
+		const content = msg.text()
 
-module.exports = {
-	bot,
-}
+		let name
+		if (room) {
+			name = await room.topic()
+			name = `${name}：${contact.name()}`
+		} else {
+			name = contact.name()
+		}
+
+		if (msg.self() && (destination && destination.self())) {
+			if ('群发模式' === content) {
+				forwardingMode = !forwardingMode
+				// await msg.say(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
+				console.log(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
+				return
+			}
+
+			if (forwardingMode) {
+				const room = await bot.Room.find({
+					topic: /Hotnode篮球队/,
+				})
+				await msg.forward(room)
+			}
+
+			return
+		}
+
+		// if (response) {
+		// 	setTimeout(async () => {
+		// 		await msg.say(response)
+		// 	}, getRandomArbitrary(0, 3000))
+		// }
+	})
+	.on('logout', user => {
+		console.log(`${user} logout`)
+	})
+	.start()
+	.catch(console.error)

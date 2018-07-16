@@ -3,22 +3,14 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node src/server.js",
-		"start-mon": "nodemon src/server.js",
+		"start": "node src/bot.js",
+		"start-mon": "nodemon src/bot.js",
 		"test": "nodemon src/test.js"
 	},
 	"dependencies": {
-		"accounting": "^0.4.1",
-		"ccxt": "^1.14.71",
-		"moment-business": "^3.0.1",
-		"node-schedule": "^1.3.0",
-		"nodemailer": "^4.6.7",
 		"qrcode-terminal": "^0.12.0",
 		"ramda": "^0.25.0",
-		"raven": "^2.6.3",
-		"request": "^2.87.0",
-		"request-promise": "^4.2.2",
-		"wechaty": "^0.18.3"
+		"wechaty": "0.19.5"
 	},
 	"devDependencies": {}
 }
