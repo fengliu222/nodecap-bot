@@ -52,6 +52,18 @@ bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
 
+caller-callsite@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/caller-callsite/-/caller-callsite-2.0.0.tgz#847e0fce0a223750a9a027c54b33731ad3154134"
+  dependencies:
+    callsites "^2.0.0"
+
+caller-path@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/caller-path/-/caller-path-2.0.0.tgz#468f83044e369ab2010fac5f06ceee15bb2cb1f4"
+  dependencies:
+    caller-callsite "^2.0.0"
+
 callsites@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-2.0.0.tgz#06eb84f00eea413da86affefacbffb36093b3c50"
@@ -59,6 +71,13 @@ callsites@^2.0.0:
 charenc@~0.0.1:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
+
+clear-module@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/clear-module/-/clear-module-3.0.0.tgz#e5ea80c0955fc087d4402b1b5f94fc8385927280"
+  dependencies:
+    caller-path "^2.0.0"
+    resolve-from "^4.0.0"
 
 clone-class@^0.6.11:
   version "0.6.19"
@@ -387,9 +406,9 @@ normalize-package-data@^2.3.2, normalize-package-data@^2.4.0:
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
 
-npm-programmatic@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/npm-programmatic/-/npm-programmatic-0.0.10.tgz#9765820505d03083e57c6a7729bed515997a61c9"
+npm-programmatic@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/npm-programmatic/-/npm-programmatic-0.0.11.tgz#d6c880e3399b1a8ba507d3878d7b6c8ab665ec00"
   dependencies:
     bluebird "^3.4.1"
 
@@ -569,6 +588,10 @@ read-pkg@^3.0.0:
     normalize-package-data "^2.3.2"
     path-type "^3.0.0"
 
+resolve-from@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
+
 retry@^0.10.0:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/retry/-/retry-0.10.1.tgz#e76388d217992c252750241d3d3956fed98d8ff4"
@@ -730,7 +753,7 @@ watchdog@^0.8.12:
   dependencies:
     brolog "^1.3.3"
 
-wechaty-puppet@^0.8.2:
+wechaty-puppet@^0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/wechaty-puppet/-/wechaty-puppet-0.8.5.tgz#8b258e59aca228c8ff1b9802c072e231e833d8ee"
   dependencies:
@@ -745,12 +768,13 @@ wechaty-puppet@^0.8.2:
     state-switch "^0.6.2"
     watchdog "^0.8.12"
 
-wechaty@0.19.5:
-  version "0.19.5"
-  resolved "https://registry.yarnpkg.com/wechaty/-/wechaty-0.19.5.tgz#8cd677d1cbd8b7a371666fdf77a341144f855070"
+wechaty@^0.19.17:
+  version "0.19.17"
+  resolved "https://registry.yarnpkg.com/wechaty/-/wechaty-0.19.17.tgz#c8947b38886ecf4795e92591752d4032e6deab5a"
   dependencies:
     array-flatten "^2.1.1"
     brolog "^1.8.1"
+    clear-module "^3.0.0"
     clone-class "^0.6.11"
     cuid "^2.1.1"
     express "^4.16.3"
@@ -758,7 +782,7 @@ wechaty@0.19.5:
     fs-extra "^6.0.1"
     hot-import "^0.2.1"
     memory-card "^0.4.9"
-    npm-programmatic "0.0.10"
+    npm-programmatic "0.0.11"
     pkg-dir "^3.0.0"
     promise-retry "^1.1.1"
     qr-image "^3.2.0"
@@ -768,7 +792,7 @@ wechaty@0.19.5:
     rxjs "^6.1.0"
     state-switch "^0.6.2"
     watchdog "^0.8.1"
-    wechaty-puppet "^0.8.2"
+    wechaty-puppet "^0.8.5"
     ws "^5.2.0"
 
 ws@^5.2.0:

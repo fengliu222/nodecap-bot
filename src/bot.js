@@ -45,11 +45,11 @@ bot
 			}
 
 			if (forwardingMode) {
-				const room = await bot.Room.find({
-					topic: 'Hotnode篮球队',
+				const contact = await bot.Contact.find({
+					name: '苏菲',
 				})
 				// await room.say(content)
-				await msg.forward(room)
+				await msg.forward(contact)
 			}
 
 			return
