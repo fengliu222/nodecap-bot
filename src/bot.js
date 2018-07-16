@@ -1,5 +1,5 @@
 const qrTerm = require('qrcode-terminal')
-const { Wechaty, Friendship } = require('wechaty')
+const { Wechaty } = require('wechaty')
 const { FileBox } = require('file-box')
 const R = require('ramda')
 
@@ -23,43 +23,25 @@ bot
 		console.log(`${user} login`)
 	})
 	.on('message', async msg => {
-		const room = msg.room()
-		const contact = msg.from()
 		const destination = msg.to()
 		const content = msg.text()
 
-		let name
-		if (room) {
-			name = await room.topic()
-			name = `${name}：${contact.name()}`
-		} else {
-			name = contact.name()
-		}
-
-		if (destination && destination.self()) {
+		if (msg.self() && (destination && destination.self())) {
 			if ('群发模式' === content) {
 				forwardingMode = !forwardingMode
-				// await msg.say(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
-				console.log(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
+				await msg.say(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
 				return
 			}
 
-			if (forwardingMode) {
-				const contact = await bot.Contact.find({
-					name: '苏菲',
+			if (forwardingMode && !/群发模式/.test(content)) {
+				const contact = await bot.Room.find({
+					topic: 'Hotnode篮球队',
 				})
-				// await room.say(content)
-				await msg.forward(contact)
+				setTimeout(async () => {
+					await msg.forward(contact)
+				}, getRandomArbitrary(0, 3000))
 			}
-
-			return
 		}
-
-		// if (response) {
-		// 	setTimeout(async () => {
-		// 		await msg.say(response)
-		// 	}, getRandomArbitrary(0, 3000))
-		// }
 	})
 	.on('logout', user => {
 		console.log(`${user} logout`)
