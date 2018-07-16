@@ -36,7 +36,7 @@ bot
 			name = contact.name()
 		}
 
-		if (msg.self() && (destination && destination.self())) {
+		if (destination && destination.self()) {
 			if ('群发模式' === content) {
 				forwardingMode = !forwardingMode
 				// await msg.say(`群发模式已${forwardingMode ? '开启' : '关闭'}`)
@@ -46,8 +46,9 @@ bot
 
 			if (forwardingMode) {
 				const room = await bot.Room.find({
-					topic: /Hotnode篮球队/,
+					topic: 'Hotnode篮球队',
 				})
+				// await room.say(content)
 				await msg.forward(room)
 			}
 
