@@ -77,7 +77,7 @@ bot
 			await workGroup.say('还有15分钟就要迟到啦，不要忘记打卡哦。')
 		})
 
-		fruitTime = Schedule.scheduleJob('20 16 * * 1-5', async () => {
+		fruitTime = Schedule.scheduleJob('05 16 * * 1-5', async () => {
 			await workGroup.say('雯华小姐姐，我们的水果咧？')
 		})
 
