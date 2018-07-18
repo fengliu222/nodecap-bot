@@ -59,6 +59,7 @@ let offwork
 let onWork
 let fruitTime
 let extraWork
+let flight
 
 bot
 	.on('scan', (qrcode, status) => {
@@ -72,6 +73,13 @@ bot
 	})
 	.on('login', async user => {
 		const workGroup = await bot.Room.find({ topic: '节点小伙伴' })
+		const yulingjie = await bot.Contact.find({ name: '陈玉玲' })
+
+		flight = Schedule.scheduleJob('00 23 * * *', async () => {
+			await yulingjie.say(
+				'欢迎乘坐 UA89 次航班飞往北京，Hotnode 小助手伴你一同度过冗长的 13 小时。一路平安，Beijing awaits',
+			)
+		})
 
 		onWork = Schedule.scheduleJob('15 09 * * 1-5', async () => {
 			await workGroup.say('还有15分钟就要迟到啦，不要忘记打卡哦。')
@@ -126,6 +134,7 @@ bot
 		}
 	})
 	.on('logout', user => {
+		flight.cancel()
 		offwork.cancel()
 		onWork.cancel()
 		fruitTime.cancel()
