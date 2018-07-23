@@ -26,15 +26,15 @@ const inDateRange = date => {
 
 const requestPeport = async p => {
 	try {
-		await delay(5000)
+		await delay(3000)
 
 		// news
 		const res = await getProjectNews(p)
 		if (res) {
-			const { news, date } = res
+			const { item, date } = res
 			const newsDate = moment(date)
 			if (inDateRange(newsDate)) {
-				p['news'] = news.content
+				p['news'] = item.content
 			}
 		}
 

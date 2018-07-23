@@ -19,15 +19,15 @@ const {
 // generateReport()
 // generateWeeklyReport()
 // handleInvestmentQuery('soc')
-// const test = async () => {
-// 	const { text, subject } = await generateWeeklyReport()
-// 	console.log(subject, text)
-// }
+const test = async () => {
+	const { text, subject } = await generateReport()
+	console.log(subject, text)
+}
 
-// test()
+test()
 
-const res = whoGivesSpeechTmr({ content: '下次谁分享' })
-console.log(res)
+// const res = whoGivesSpeechTmr({ content: '下次谁分享' })
+// console.log(res)
 
 // const res = invitationQuery('潇芳，bk')
 // console.log(res)

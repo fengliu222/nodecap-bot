@@ -15,26 +15,26 @@ const getProjectNews = async project => {
 	if (!project.name) return
 	try {
 		const {
-			list: [news]
+			list: [news],
 		} = await requestPromise({
 			uri: `https://api.jinse.com/v3/live/list`,
 			qs: {
 				limit: 1,
 				flag: 'down',
 				keyword: project.name,
-				version: '9.9.9'
+				version: '9.9.9',
 			},
-			json: true
+			json: true,
 		})
 		if (news) {
 			const {
 				lives: [item],
-				date
+				date,
 			} = news
 			if (newsFilter(project.name, item)) {
 				return Promise.resolve({
-					news: item,
-					date
+					item,
+					date,
 				})
 			}
 		}
@@ -53,13 +53,13 @@ const getProjectWeeklyNews = async project => {
 				limit: 100,
 				flag: 'down',
 				keyword: project.name,
-				version: '9.9.9'
+				version: '9.9.9',
 			},
-			json: true
+			json: true,
 		})
 		if (list && list.length > 0) {
 			const weeklyList = list.filter(l =>
-				moment(l.date).isSame(moment(), 'week')
+				moment(l.date).isSame(moment(), 'week'),
 			)
 			if (weeklyList && weeklyList.length > 0) {
 				return Promise.resolve(weeklyList)
@@ -74,5 +74,5 @@ const getProjectWeeklyNews = async project => {
 
 module.exports = {
 	getProjectNews,
-	getProjectWeeklyNews
+	getProjectWeeklyNews,
 }
