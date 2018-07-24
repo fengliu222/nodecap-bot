@@ -104,9 +104,6 @@ const createReport = r => {
 }
 
 const generateReport = async () => {
-	// const room = await Room.find({ topic: '项目动态-产品设计' })
-	// if (!room) return
-
 	// get project list
 	const projects = require('../../data/projects.json')
 
@@ -121,7 +118,7 @@ const generateReport = async () => {
 	// return it
 	return {
 		text: report_text,
-		subject: `${moment().format('LL')}投后监测汇总`,
+		subject: `${moment().format('LL')}投后项目动态汇总`,
 	}
 }
 
