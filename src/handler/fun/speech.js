@@ -20,7 +20,7 @@ const whoGivesSpeechTmr = ({ content }) => {
 		'王岩',
 	]
 	const now = moment()
-	const start = moment('07/02/2018', 'MM/DD/YYYY')
+	const start = moment('07/03/2018', 'MM/DD/YYYY')
 	if (now.isBefore(start)) {
 		return team[0]
 	}
