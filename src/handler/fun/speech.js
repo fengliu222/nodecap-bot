@@ -19,13 +19,14 @@ const whoGivesSpeechTmr = ({ content }) => {
 		'张腾',
 		'王岩',
 	]
-	const now = moment()
+	const daysToNow = content.match(/下/g).length - 1
+	const anchor = moment().add(daysToNow, 'day')
 	const start = moment('07/03/2018', 'MM/DD/YYYY')
-	if (now.isBefore(start)) {
+	if (anchor.isBefore(start)) {
 		return team[0]
 	}
-	const bDiff = business.weekDays(start, now)
-	const realDiff = now.diff(start, 'day')
+	const bDiff = business.weekDays(start, anchor)
+	const realDiff = anchor.diff(start, 'day')
 	const modulo = () => {
 		const modulo = bDiff % team.length
 		if (bDiff % 5 === 0) {
