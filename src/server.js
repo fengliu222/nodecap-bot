@@ -22,10 +22,10 @@ Schedule.scheduleJob('50 20 * * *', async () => {
 	mail({ text, subject })
 })
 
-Schedule.scheduleJob('20 21 * * 7', async () => {
-	const { text, subject } = await generateWeeklyReport()
-	mail({ text, subject })
-})
+// Schedule.scheduleJob('20 21 * * 7', async () => {
+// 	const { text, subject } = await generateWeeklyReport()
+// 	mail({ text, subject })
+// })
 
 Schedule.scheduleJob('0 0 * * *', async () => {
 	await login()
