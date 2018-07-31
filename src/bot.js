@@ -15,6 +15,8 @@ const privilegeList = [
 	'杨玉梅@Node Capital', // 玉梅姐
 	'王明远andy', // 明远
 	'Iridescent', // Yutao
+	'Kaiyo', // 柯瑶
+	'潇芳Ocoa@Node Capital', // 一姐
 	'BK', // 我
 	'马建军', // 马总
 	'陈玉玲', // 玉玲姐,
