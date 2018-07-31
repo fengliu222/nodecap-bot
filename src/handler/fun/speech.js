@@ -14,14 +14,15 @@ const whoGivesSpeechTmr = ({ content }) => {
 		'朋哥',
 		'禹涛',
 		'振阔',
-		'苏菲',
 		'suyao',
+		'苏菲',
 		'张腾',
 		'王岩',
+		'红飞',
 	]
 	const daysToNow = content.match(/下/g).length - 1
 	const anchor = moment().add(daysToNow, 'day')
-	const start = moment('07/03/2018', 'MM/DD/YYYY')
+	const start = moment('07/02/2018', 'MM/DD/YYYY')
 	if (anchor.isBefore(start)) {
 		return team[0]
 	}

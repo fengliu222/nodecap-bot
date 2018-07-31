@@ -26,7 +26,7 @@ const {
 
 // test()
 
-const res = whoGivesSpeechTmr({ content: '下下下下次谁分享' })
+const res = whoGivesSpeechTmr({ content: '下次谁分享' })
 console.log(res)
 
 // const res = invitationQuery('潇芳，bk')
