@@ -2,6 +2,7 @@ const moment = require('moment')
 const accounting = require('accounting')
 const Raven = require('raven')
 const R = require('ramda')
+const requestPromise = require('request-promise')
 
 const { getProjectNews } = require('../news')
 const { getLatestTweet } = require('../twitter')
@@ -51,7 +52,10 @@ const requestPeport = async p => {
 		if (p.news || p.tweet) {
 			// request token
 			if (p.token) {
-				const tokenInfo = await getTokenInfo(p.token)
+				const tokenInfo = await getTokenInfo({
+					token: p.token,
+					id: p.coingecko_id,
+				})
 				if (tokenInfo) {
 					const percent_change_24h = R.path([
 						'market_data',
@@ -105,7 +109,10 @@ const createReport = r => {
 
 const generateReport = async () => {
 	// get project list
-	const projects = require('../../data/projects.json')
+	const projects = await requestPromise({
+		uri: 'http://api.hotnode.io/v1/projects/robot-list',
+		json: true,
+	})
 
 	// iterate
 	const report_raw = await generateReportData(projects)

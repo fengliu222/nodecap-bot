@@ -33,10 +33,10 @@ const getTokenId = async token => {
 	}
 }
 
-const getTokenInfo = async token => {
-	if (R.isNil(token)) return
+const getTokenInfo = async ({ token, id }) => {
+	if (R.isNil(token) || R.isNil(id)) return
 	try {
-		const tokenId = await getTokenId(token)
+		const tokenId = id || (await getTokenId(token))
 		const data = await requestPromise({
 			uri: `https://api.coingecko.com/api/v3/coins/${tokenId}`,
 			json: true,
@@ -222,7 +222,7 @@ const handleCoinMsg = async message => {
 	)
 	const inEnglish = message.inEnglish
 	try {
-		const tokenInfo = await getTokenInfo(content)
+		const tokenInfo = await getTokenInfo({ token: content })
 		if (tokenInfo) {
 			if (inEnglish) {
 				return formatTokenInfoEnglish(tokenInfo)

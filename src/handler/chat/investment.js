@@ -120,7 +120,7 @@ const handleInvestmentQuery = async ({ content, token, company }) => {
 
 	try {
 		// token info
-		const token = await getTokenInfo(project.token_name)
+		const token = await getTokenInfo({ token: project.token_name })
 		if (!R.isNil(token)) {
 			const tokenInfo = formatTokenInfo(token)
 			reply = `${reply}\n${tokenInfo}`
