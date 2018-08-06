@@ -34,7 +34,7 @@ const getTokenId = async token => {
 }
 
 const getTokenInfo = async ({ token, id }) => {
-	if (R.isNil(token) || R.isNil(id)) return
+	if (R.isNil(token) && R.isNil(id)) return
 	try {
 		const tokenId = id || (await getTokenId(token))
 		const data = await requestPromise({
@@ -73,10 +73,6 @@ const formatTokenInfo = info => {
 		R.path(['market_data', 'current_price', 'cny'])(info),
 		'￥',
 	)}\n`
-	const volume_24h = `24小时交易量：${moneyFormat(
-		R.path(['market_data', 'volume_change_24h'])(info),
-		'',
-	)} ${R.path(['symbol'])(info)}\n`
 	const market_cap = `总市值：${moneyFormat(
 		R.path(['market_data', 'market_cap', 'usd'])(info),
 	)} / ${moneyFormat(
@@ -88,7 +84,7 @@ const formatTokenInfo = info => {
 		percent_change_24h,
 	)}（24小时）\n${percentageFormat(percent_change_7d)}（7天）\n`
 
-	const market_data = `市场数据\n${price}${volume_24h}${market_cap}${percent_change}`
+	const market_data = `市场数据\n${price}${market_cap}${percent_change}`
 
 	const community_data = `\n社区活跃\nFacebook 点赞：${R.pathOr('暂无', [
 		'community_data',
