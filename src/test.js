@@ -1,5 +1,4 @@
 const { generateReport } = require('./handler/report')
-const { generateWeeklyReport } = require('./handler/report/weekly')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
 const { requestAccessToken, chat } = require('./handler/chat')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
@@ -17,7 +16,6 @@ const {
 } = require('./handler/coin')
 
 // generateReport()
-// generateWeeklyReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
 	const { text, subject } = await generateReport()

@@ -8,7 +8,6 @@ const R = require('ramda')
 const { bot: replyBot } = require('./bot')
 const { mail } = require('./handler/mail')
 const { generateReport } = require('./handler/report')
-const { generateWeeklyReport } = require('./handler/report/weekly')
 const { login } = require('./handler/auth')
 
 const bot = new Wechaty()
@@ -21,11 +20,6 @@ Schedule.scheduleJob('50 20 * * *', async () => {
 	const { text, subject } = await generateReport()
 	mail({ text, subject })
 })
-
-// Schedule.scheduleJob('20 21 * * 7', async () => {
-// 	const { text, subject } = await generateWeeklyReport()
-// 	mail({ text, subject })
-// })
 
 Schedule.scheduleJob('0 0 * * *', async () => {
 	await login()

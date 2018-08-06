@@ -3,7 +3,6 @@ const { handleCoinMsg } = require('./handler/coin')
 const { handleInvestmentQuery } = require('./handler/chat/investment')
 const { chat } = require('./handler/chat')
 const { generateReport } = require('./handler/report')
-const { generateWeeklyReport } = require('./handler/report/weekly')
 const { whoGivesSpeechTmr } = require('./handler/fun/speech')
 const { query } = require('./handler/other/us_trip')
 
