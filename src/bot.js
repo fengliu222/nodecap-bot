@@ -25,28 +25,6 @@ const privilegeList = [
 const bot = async ({ content, name }) => {
 	console.log(name, content)
 
-	// const text = content.includes('\n') ? content.split('\n')[1] : content
-
-	// US Trip 查询
-	// if (name === 'chenyulinghbu' || name === 'a39851352') {
-	// 	const res = query(text)
-	// 	if (res) {
-	// 		return res
-	// 	}
-	// }
-
-	// if (name === 'qq49539772') {
-	// 	// 拓拓
-	// 	const res = await handleInvestmentQuery({
-	// 		content,
-	// 		token: 'UL-oJBk_nksaeEacMSQVgeM-KNt4JQHf', // 郭杰的token,
-	// 		company: 2,
-	// 	})
-	// 	if (res) {
-	// 		return res
-	// 	}
-	// }
-
 	if (/OK|ok|Ok|oK/.test(content)) {
 		return
 	}

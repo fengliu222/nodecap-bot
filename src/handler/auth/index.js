@@ -5,7 +5,7 @@ const login = async () => {
 	try {
 		const data = await requestPromise({
 			method: 'POST',
-			uri: 'http://47.100.101.130/v1/users/access-token',
+			uri: 'http://api.hotnode.io/v1/users/access-token',
 			body: {
 				account: 'huangbokang@nodecap.com',
 				password: 'gelisha0924',

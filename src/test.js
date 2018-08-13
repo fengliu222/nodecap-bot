@@ -18,8 +18,8 @@ const {
 // generateReport()
 // handleInvestmentQuery('soc')
 const test = async () => {
-	const { text, subject } = await generateReport()
-	console.log(subject, text)
+	const reply = await handleInvestmentQuery({ content: 'soc' })
+	console.log(reply)
 }
 
 test()
