@@ -17,15 +17,15 @@ const {
 
 // generateReport()
 // handleInvestmentQuery('soc')
-const test = async () => {
-	const reply = await handleInvestmentQuery({ content: 'soc' })
-	console.log(reply)
-}
+// const test = async () => {
+// 	const reply = await handleInvestmentQuery({ content: 'soc' })
+// 	console.log(reply)
+// }
 
-test()
+// test()
 
-// const res = whoGivesSpeechTmr({ content: '下次谁分享' })
-// console.log(res)
+const res = whoGivesSpeechTmr({ content: '下次谁分享' })
+console.log(res)
 
 // const res = invitationQuery('潇芳，bk')
 // console.log(res)
