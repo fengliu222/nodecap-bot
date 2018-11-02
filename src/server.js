@@ -16,13 +16,12 @@ Raven.config(
 	'https://ec41621ea39d46a2bc8cf0acab3fac43@sentry.io/1199485',
 ).install()
 
-Schedule.scheduleJob('50 20 * * *', async () => {
-	const { text, subject } = await generateReport()
-	mail({ text, subject })
-})
-
 Schedule.scheduleJob('0 0 * * *', async () => {
 	await login()
+
+	// mail it
+	const { text, subject } = await generateReport()
+	mail({ text, subject })
 })
 
 const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min
