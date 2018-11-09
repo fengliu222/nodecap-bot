@@ -18,7 +18,9 @@ Raven.config(
 
 Schedule.scheduleJob('0 0 * * *', async () => {
 	await login()
+})
 
+Schedule.scheduleJob('30 23 * * *', async () => {
 	// mail it
 	const { text, subject } = await generateReport()
 	mail({ text, subject })
