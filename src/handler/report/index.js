@@ -109,10 +109,14 @@ const createReport = r => {
 
 const generateReport = async () => {
 	// get project list
-	const projects = await requestPromise({
+	let projects = await requestPromise({
 		uri: 'https://api.hotnode.cn/v1/projects/robot-list',
 		json: true,
 	})
+	// filter unneeded
+	projects = R.filter(
+		p => !R.contains(p.id, [43, 99, 160, 403, 416, 435, 580, 602, 811, 1304]),
+	)(filter)
 
 	// iterate
 	const report_raw = await generateReportData(projects)
