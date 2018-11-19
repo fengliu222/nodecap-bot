@@ -10,7 +10,7 @@ const queryInvestmentRepo = async ({ q, token, company }) => {
 	}
 	try {
 		const data = await requestPromise({
-			uri: 'http://api.hotnode.io/v1/projects',
+			uri: 'https://api.hotnode.cn/v1/projects',
 			qs: {
 				q,
 			},

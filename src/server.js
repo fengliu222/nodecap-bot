@@ -33,7 +33,7 @@ const handleRoomJoin = async room => {
 		'老板好🙇，hotnode是源自Token Fund日常工作需要而衍生的一款企业资管工具，包含了基金收益率实时统计、项目募投管退管理、权限设置、人脉管理等功能。目前产品已经完成了4.0版本，还处于不断迭代之中，还希望老板在使用过程中多给我们提提意见，帮助Hodenode更快成长，更加契合老板在工作中的需求。\n\n此群是咱们Fund的专属群，群内包含了Hotnode的产品经理、工程师、设计师、客户经理，能够7*24随时在线，回答老板在使用过程中可能遇到的各类问题。😄\n\n下图是Hotnode的产品使用手册，里面包含了项目的研发背景、首次启动步骤、各项功能的具体使用方式，望查看。'
 	const manual = FileBox.fromFile(`${__dirname}/data/Hotnode产品手册v1.pdf`)
 	const download =
-		'1、Web端访问地址：http://www.hotnode.io\n2、iOS下载：https://fir.im/hotnode\n3、Android下载：https://fir.im/hotnodeAndroid'
+		'1、Web端访问地址：https://www.hotnode.cn\n2、iOS下载：https://fir.im/hotnode\n3、Android下载：https://fir.im/hotnodeAndroid'
 
 	await room.say(intro)
 	await room.say(manual)

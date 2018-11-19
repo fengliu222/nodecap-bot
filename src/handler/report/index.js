@@ -110,7 +110,7 @@ const createReport = r => {
 const generateReport = async () => {
 	// get project list
 	const projects = await requestPromise({
-		uri: 'http://api.hotnode.io/v1/projects/robot-list',
+		uri: 'https://api.hotnode.cn/v1/projects/robot-list',
 		json: true,
 	})
 
