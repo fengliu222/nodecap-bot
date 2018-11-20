@@ -116,7 +116,7 @@ const generateReport = async () => {
 	// filter unneeded
 	projects = R.filter(
 		p => !R.contains(p.id, [43, 99, 160, 403, 416, 435, 580, 602, 811, 1304]),
-	)(filter)
+	)(projects)
 
 	// iterate
 	const report_raw = await generateReportData(projects)
