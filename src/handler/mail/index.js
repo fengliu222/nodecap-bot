@@ -18,7 +18,6 @@ var defaultOptions = {
 		'liujianfeng@nodecap.com',
 		'liuzhenkuo@nodecap.com',
 		'wangpeng@nodecap.com',
-		'likeyao@nodecap.com',
 	],
 }
 

@@ -40,13 +40,13 @@ const requestPeport = async p => {
 		}
 
 		// tweet
-		const tweet = await getLatestTweet(p)
-		if (tweet) {
-			const tweetDate = moment(tweet.created_at)
-			if (inDateRange(tweetDate)) {
-				p['tweet'] = tweet.text
-			}
-		}
+		// const tweet = await getLatestTweet(p)
+		// if (tweet) {
+		// 	const tweetDate = moment(tweet.created_at)
+		// 	if (inDateRange(tweetDate)) {
+		// 		p['tweet'] = tweet.text
+		// 	}
+		// }
 
 		// token info
 		if (p.news || p.tweet) {
