@@ -22,7 +22,7 @@ const generateReportData = async projects => {
 }
 
 const inDateRange = date => {
-	return date.isSame(moment(), 'day')
+	return date.isSame(moment().subtract(1, 'day'), 'day')
 }
 
 const requestPeport = async p => {
