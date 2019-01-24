@@ -124,12 +124,14 @@ const generateReport = async () => {
 		report_raw
 			.filter(r => r.news || r.tweet)
 			.map(createReport)
-			.join('\n') || '今日暂无项目投后动态-_-'
+			.join('\n') || '昨日暂无项目投后动态。'
 
 	// return it
 	return {
 		text: report_text,
-		subject: `${moment().format('LL')}投后项目动态汇总`,
+		subject: `${moment()
+			.subtract(1, 'day')
+			.format('LL')}投后项目动态汇总`,
 	}
 }
 
