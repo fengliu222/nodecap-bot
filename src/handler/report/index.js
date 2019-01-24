@@ -11,6 +11,8 @@ const { delay, formatPercentage } = require('../../helper/common')
 
 moment.locale('zh-cn')
 
+const target_date = moment().subtract(1, 'day')
+
 const generateReportData = async projects => {
 	let reportData = []
 	for (const item of projects) {
@@ -22,7 +24,7 @@ const generateReportData = async projects => {
 }
 
 const inDateRange = date => {
-	return date.isSame(moment().subtract(1, 'day'), 'day')
+	return date.isSame(target_date, 'day')
 }
 
 const requestPeport = async p => {
@@ -129,9 +131,7 @@ const generateReport = async () => {
 	// return it
 	return {
 		text: report_text,
-		subject: `${moment()
-			.subtract(1, 'day')
-			.format('LL')}投后项目动态汇总`,
+		subject: `${target_date.format('LL')}投后项目动态汇总`,
 	}
 }
 
