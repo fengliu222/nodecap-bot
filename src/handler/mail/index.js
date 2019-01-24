@@ -17,7 +17,12 @@ var defaultOptions = {
 		'wangmingyuan@nodecap.com',
 		'liujianfeng@nodecap.com',
 		'liuzhenkuo@nodecap.com',
+		'wangyan@nodecap.com',
 		'wangpeng@nodecap.com',
+		'linling@nodecap.com',
+		'jiaoyukun@nodecap.com',
+		'zhangteng@nodecap.com',
+		'wangjingling@nodecap.com',
 	],
 }
 
@@ -31,7 +36,7 @@ const mail = (options = {}) => {
 			if (error) {
 				console.log(error)
 			} else {
-				console.log('Message sent: ' + response.message)
+				console.log('Message sent successfully.')
 			}
 		},
 	)
